@@ -2,19 +2,19 @@
 
 namespace SimplyAOP
 {
-    public interface IAdvice
+    public interface IAspect
     {
         string Name { get; }
     }
 
-    public interface IBeforeAdvice : IAdvice
+    public interface IBeforeAdvice : IAspect
     {
         void Before(Invocation invocation);
 
         void Before<TParam>(Invocation invocation, ref TParam parameter);
     }
 
-    public interface IAfterAdvice : IAdvice
+    public interface IAfterAdvice : IAspect
     {
         void AfterReturning(Invocation invocation);
 
