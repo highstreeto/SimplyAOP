@@ -20,7 +20,7 @@ namespace SimplyAOP
 
         void AfterReturning<TResult>(Invocation invocation, ref TResult result);
 
-        void AfterThrowing<TResult>(Invocation invocation, ref Exception exception);
+        void AfterThrowing(Invocation invocation, ref Exception exception);
     }
 
     public struct Invocation
