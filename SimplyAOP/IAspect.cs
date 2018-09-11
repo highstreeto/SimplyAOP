@@ -25,6 +25,11 @@ namespace SimplyAOP
 
     public struct Invocation
     {
+        public Invocation(string methodName)
+        {
+            MethodName = methodName;
+        }
 
+        public string MethodName { get; }
     }
 }
