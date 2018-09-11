@@ -20,7 +20,7 @@ namespace SimplyAOP
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation(callerMemberName);
+            var invocation = new Invocation(targetType, callerMemberName);
             try
             {
                 foreach (var advice in config.BeforeAdvices)
