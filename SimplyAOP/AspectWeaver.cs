@@ -4,15 +4,18 @@ using System.Runtime.CompilerServices;
 
 namespace SimplyAOP
 {
-    public class AspectWeaver<TTarget>
+    public class AspectWeaver
     {
         private readonly AspectConfiguration config;
-        private readonly TTarget target;
+        private readonly object target;
+        private readonly Lazy<Type> targetType;
 
-        public AspectWeaver(AspectConfiguration config, TTarget target)
+        public AspectWeaver(AspectConfiguration config, object target)
         {
             this.config = config;
             this.target = target;
+
+            targetType = new Lazy<Type>(() => target.GetType());
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
