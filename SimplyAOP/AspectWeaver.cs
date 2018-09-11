@@ -4,18 +4,20 @@ using System.Runtime.CompilerServices;
 
 namespace SimplyAOP
 {
-    public class AspectWeaver
+    public class AspectWeaver<TTarget>
     {
         private readonly AspectConfiguration config;
+        private readonly TTarget target;
 
-        public AspectWeaver(AspectConfiguration config)
+        public AspectWeaver(AspectConfiguration config, TTarget target)
         {
             this.config = config;
+            this.target = target;
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation();
+            var invocation = new Invocation(callerMemberName);
             try
             {
                 foreach (var advice in config.BeforeAdvices)
