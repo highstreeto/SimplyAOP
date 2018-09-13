@@ -39,6 +39,25 @@ namespace SimplyAOP
             }
         }
 
+        public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null)
+        {
+            var invocation = new Invocation(targetType, callerMemberName);
+            try
+            {
+                foreach (var advice in config.BeforeAdvices)
+                    advice.Before(invocation, ref param);
+                method(param);
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterReturning(invocation);
+            }
+            catch (Exception ex)
+            {
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterThrowing(invocation, ref ex);
+                throw ex;
+            }
+        }
+
 #pragma warning restore RCS1044 // Remove original exception from throw statement.
     }
 
@@ -57,15 +76,16 @@ namespace SimplyAOP
 
         public IEnumerable<IAfterAdvice> AfterAdvices => afterAdvices;
 
-        public void AddAspect<TAspect>() where TAspect : IAspect, new()
+        public AspectConfiguration AddAspect<TAspect>() where TAspect : IAspect, new()
             => AddAspect(new TAspect());
 
-        public void AddAspect(IAspect aspect)
+        public AspectConfiguration AddAspect(IAspect aspect)
         {
             if (aspect is IBeforeAdvice before)
                 beforeAdvices.Add(before);
             if (aspect is IAfterAdvice after)
                 afterAdvices.Insert(0, after);
+            return this;
         }
     }
 }
