@@ -18,6 +18,8 @@ namespace SimplyAOP
             targetType = new Lazy<Type>(() => target.GetType());
         }
 
+#pragma warning disable RCS1044 // disabled because throw; can not be used because of ref
+
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
         {
             var invocation = new Invocation(targetType, callerMemberName);
@@ -36,12 +38,20 @@ namespace SimplyAOP
                 throw ex;
             }
         }
+
+#pragma warning restore RCS1044 // Remove original exception from throw statement.
     }
 
     public class AspectConfiguration
     {
         private readonly List<IBeforeAdvice> beforeAdvices;
         private readonly List<IAfterAdvice> afterAdvices;
+
+        public AspectConfiguration()
+        {
+            beforeAdvices = new List<IBeforeAdvice>();
+            afterAdvices = new List<IAfterAdvice>();
+        }
 
         public IEnumerable<IBeforeAdvice> BeforeAdvices => beforeAdvices;
 
