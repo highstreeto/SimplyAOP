@@ -18,20 +18,45 @@ namespace SimplyAOP.Tests
             var weaver = new AspectWeaver(config, this);
 
             string value = "";
-            weaver.Advice(() => value = "called");
+            weaver.Advice(() => { value = "called"; });
             Assert.AreEqual("called", value);
 
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
 
-            weaver.Advice("called2", arg => value = arg);
+            weaver.Advice("called2", arg => { value = arg; });
             Assert.AreEqual("called2", value);
 
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
 
-            weaver.Advice(() => value = "called3");
+            weaver.Advice(() => { value = "called3"; });
             Assert.AreEqual("called3", value);
+
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void TestBeforeAdviceWithResult()
+        {
+            var adviceMock = new Mock<IBeforeAdvice>();
+
+            var config = new AspectConfiguration()
+                .AddAspect(adviceMock.Object);
+
+            var weaver = new AspectWeaver(config, this);
+
+            Assert.AreEqual("called", weaver.Advice(() => "called"));
+
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+
+            Assert.AreEqual("called2", weaver.Advice("called2", arg => arg));
+
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+
+            Assert.AreEqual("called3", weaver.Advice(() => "called3" ));
 
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
         }

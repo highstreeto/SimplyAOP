@@ -58,6 +58,47 @@ namespace SimplyAOP
             }
         }
 
+        public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null)
+        {
+            var invocation = new Invocation(targetType, callerMemberName);
+            try
+            {
+                foreach (var advice in config.BeforeAdvices)
+                    advice.Before(invocation);
+                var result = method();
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterReturning(invocation, ref result);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterThrowing(invocation, ref ex);
+                throw ex;
+            }
+        }
+
+
+        public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
+        {
+            var invocation = new Invocation(targetType, callerMemberName);
+            try
+            {
+                foreach (var advice in config.BeforeAdvices)
+                    advice.Before(invocation, ref param);
+                var result = method(param);
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterReturning(invocation, ref result);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterThrowing(invocation, ref ex);
+                throw ex;
+            }
+        }
+
 #pragma warning restore RCS1044 // Remove original exception from throw statement.
     }
 
