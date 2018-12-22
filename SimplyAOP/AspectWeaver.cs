@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 
 namespace SimplyAOP
 {
@@ -18,8 +19,6 @@ namespace SimplyAOP
             targetType = new Lazy<Type>(() => target.GetType());
         }
 
-#pragma warning disable RCS1044 // disabled because throw; can not be used because of ref
-
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
         {
             var invocation = new Invocation(targetType, callerMemberName);
@@ -35,7 +34,7 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
             }
         }
 
@@ -54,7 +53,7 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
             }
         }
 
@@ -74,10 +73,10 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
+                return default(TResult);
             }
         }
-
 
         public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
         {
@@ -95,11 +94,10 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
+                return default(TResult);
             }
         }
-
-#pragma warning restore RCS1044 // Remove original exception from throw statement.
     }
 
     public class AspectConfiguration
