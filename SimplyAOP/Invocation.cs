@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace SimplyAOP
 {
+    /// <summary>
+    /// Contains information of one method invocation which is targeted by the advices
+    /// </summary>
     public struct Invocation
     {
         private readonly Lazy<Type> targetType;

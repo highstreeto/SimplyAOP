@@ -5,6 +5,9 @@ using System.Runtime.ExceptionServices;
 
 namespace SimplyAOP
 {
+    /// <summary>
+    /// Simple Aspect Waver which must be directly called
+    /// </summary>
     public class AspectWeaver
     {
         private readonly AspectConfiguration config;
