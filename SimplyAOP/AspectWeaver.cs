@@ -101,6 +101,25 @@ namespace SimplyAOP
                 return default(TResult);
             }
         }
+
+        public class Class
+        {
+            private readonly AspectWeaver weaver;
+
+            public Class(AspectConfiguration config)
+            {
+                weaver = new AspectWeaver(config, this);
+            }
+
+            protected void Advice(Action method, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(method, callerMemberName);
+            protected void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(param, method, callerMemberName);
+            protected TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(method, callerMemberName);
+            protected TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(param, method, callerMemberName);
+        }
     }
 
     public class AspectConfiguration
