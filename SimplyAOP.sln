@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyAOP", "SimplyAOP\SimplyAOP.csproj", "{39A7EFB7-3800-4204-99D4-E84FFADD5CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyAOP.Tests", "SimplyAOP.Tests\SimplyAOP.Tests.csproj", "{88712708-9296-4DC6-B263-D4B0F07FCBCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyAOP.Tests", "SimplyAOP.Tests\SimplyAOP.Tests.csproj", "{88712708-9296-4DC6-B263-D4B0F07FCBCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyAOP.Example", "SimplyAOP.Example\SimplyAOP.Example.csproj", "{76B30952-B9F6-4A2D-A860-216849F8EB5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{88712708-9296-4DC6-B263-D4B0F07FCBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88712708-9296-4DC6-B263-D4B0F07FCBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88712708-9296-4DC6-B263-D4B0F07FCBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B30952-B9F6-4A2D-A860-216849F8EB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B30952-B9F6-4A2D-A860-216849F8EB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B30952-B9F6-4A2D-A860-216849F8EB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B30952-B9F6-4A2D-A860-216849F8EB5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
