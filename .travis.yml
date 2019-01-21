@@ -1,4 +1,4 @@
 language: csharp
 dotnet: 2.1.502
 script:
-  - ./build.sh -t Test
+  - ./build.sh --target Test
