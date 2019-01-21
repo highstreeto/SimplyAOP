@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/SimplyAOP.Example/SimplyAOP.Example.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
