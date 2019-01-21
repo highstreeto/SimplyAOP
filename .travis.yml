@@ -1,2 +1,4 @@
 language: csharp
-solution: SimplyAOP.sln
+dotnet: 2.1.502
+script:
+  - ./build.sh -t Test
