@@ -2,7 +2,7 @@
 tools/*
 
 # Generated Files
-/reports
+coverage.json
 
 # Visual Studio Code
 
