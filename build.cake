@@ -17,18 +17,9 @@ Task("Test")
     .IsDependentOn("Test-Only");
 Task("Test-Only").Does(() =>
 {
-    DotCoverCover(
-        tool => tool. DotNetCoreTest("./SimplyAOP.Tests"),
-        new FilePath("./reports/test_coverage.dcvr"),
-        new DotCoverCoverSettings()
-            .WithFilter("+:SimplyAOP")
-    );
-    DotCoverReport(new FilePath("./reports/test_coverage.dcvr"),
-        new FilePath("./reports/Test.html"),
-        new DotCoverReportSettings {
-            ReportType = DotCoverReportType.HTML
-        }
-    );
+    DotNetCoreTest("SimplyAOP.Tests", new DotNetCoreTestSettings() {
+        ArgumentCustomization = args => args.Append("/p:CollectCoverage=true")
+    });
 });
 
 RunTarget(target);
