@@ -3,7 +3,6 @@ language: csharp
 mono: none
 dotnet: 2.1.502
 
-before_script:
-  - dotnet tool install -g Cake.Tool --version 0.32.1
 script:
-  - dotnet-cake -target=Test
+  - dotnet tool install --tool-path ./tools --version 0.32.1 Cake.Tool
+  - ./tools/dotnet-cake -target=Test
