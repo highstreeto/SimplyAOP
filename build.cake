@@ -1,15 +1,15 @@
 #tool "nuget:?package=JetBrains.dotCover.CommandLineTools&version=2018.3.1"
 
 var target = Argument("target", "Build");
-var verbosity = Argument("verbosity", Verbosity.Minimal);
+var verbosity = Argument("verbosity", DotNetCoreVerbosity.Minimal);
 
 Task("Build")
     .IsDependentOn("Build-Only");
 Task("Build-Only").Does(() =>
 {
-    MSBuild("./SimplyAOP.sln", new MSBuildSettings()
-        .SetVerbosity(verbosity)
-    );
+    DotNetCoreBuild(".", new DotNetCoreBuildSettings() {
+        Verbosity = verbosity
+    });
 });
 
 Task("Test")
