@@ -4,4 +4,5 @@ mono: none
 dotnet: 2.1.502
 
 script:
-  - bash build.sh --target Test
+  - dotnet tool install -g Cake.Tool --version 0.32.1
+  - dotnet-cake -target=Test
