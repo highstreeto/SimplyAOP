@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SimplyAOP</id>
+    <authors>Martin Hochstrasser</authors>
+    <owners>Martin Hochstrasser</owners>
+    <version>$version$</version>
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/highstreeto/SimplyAOP</projectUrl>
+    <description>A simple AOP library</description>
+    <copyright>Copyright (c) 2019 Martin Hochstrasser</copyright>
+    <tags>AOP</tags>
+    <repository type="git" url="https://github.com/highstreeto/SimplyAOP" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.0\SimplyAOP.dll" target="lib\netstandard2.0\SimplyAOP.dll" />
+  </files>
+</package>
