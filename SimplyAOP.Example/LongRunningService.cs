@@ -8,7 +8,9 @@ namespace SimplyAOP.Example
 {
     public interface ILongRunningService
     {
-        void Execute(int n); 
+        void Execute(int n);
+
+        int ExecuteSum(int a, int b);
     }
 
     public class LongRunningService : AspectWeaver.Class, ILongRunningService
@@ -25,6 +27,16 @@ namespace SimplyAOP.Example
                 );
                 Thread.Sleep(sleepTime);
                 Console.WriteLine("Done!");
+            });
+        }
+
+        public int ExecuteSum(int a, int b)
+        {
+            return Advice((a, b), req => {
+                Console.Write("Summing numbers ... ");
+                int result = a + b;
+                Console.WriteLine("Done!");
+                return result;
             });
         }
     }
