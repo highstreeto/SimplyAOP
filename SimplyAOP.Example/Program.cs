@@ -13,6 +13,9 @@ namespace SimplyAOP.Example
 
             service.Execute(n: 10);
             service.Execute(n: 1);
+
+            service.ExecuteSum(a: 1, b: -1);
+            service.ExecuteSum(a: 100, b: 0);
         }
     }
 }

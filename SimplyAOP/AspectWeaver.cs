@@ -11,20 +11,18 @@ namespace SimplyAOP
     public class AspectWeaver
     {
         private readonly AspectConfiguration config;
-        private readonly object target;
         private readonly Lazy<Type> targetType;
 
-        public AspectWeaver(AspectConfiguration config, object target)
+        public AspectWeaver(AspectConfiguration config, Lazy<Type> targetType)
         {
             this.config = config;
-            this.target = target;
-
-            targetType = new Lazy<Type>(() => target.GetType());
+            this.targetType = targetType;
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation(targetType, callerMemberName);
+            var invocation = new Invocation(targetType, callerMemberName,
+                new Lazy<Type[]>(() => Type.EmptyTypes));
             try
             {
                 foreach (var advice in config.BeforeAdvices)
@@ -43,7 +41,8 @@ namespace SimplyAOP
 
         public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation(targetType, callerMemberName);
+            var invocation = new Invocation(targetType, callerMemberName,
+                DetermineParameterTypes(param));
             try
             {
                 foreach (var advice in config.BeforeAdvices)
@@ -62,7 +61,8 @@ namespace SimplyAOP
 
         public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation(targetType, callerMemberName);
+            var invocation = new Invocation(targetType, callerMemberName,
+                new Lazy<Type[]>(() => Type.EmptyTypes));
             try
             {
                 foreach (var advice in config.BeforeAdvices)
@@ -83,7 +83,8 @@ namespace SimplyAOP
 
         public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
         {
-            var invocation = new Invocation(targetType, callerMemberName);
+            var invocation = new Invocation(targetType, callerMemberName,
+                DetermineParameterTypes(param));
             try
             {
                 foreach (var advice in config.BeforeAdvices)
@@ -102,13 +103,25 @@ namespace SimplyAOP
             }
         }
 
+        private static Lazy<Type[]> DetermineParameterTypes<TParam>(TParam param)
+        {
+            return new Lazy<Type[]>(() => {
+                var paramType = typeof(TParam);
+                if (paramType.FullName.StartsWith("System.ValueTuple"))
+                {
+                    return paramType.GenericTypeArguments;
+                }
+                return new[] { param.GetType() };
+            });
+        }
+
         public class Class
         {
             private readonly AspectWeaver weaver;
 
             public Class(AspectConfiguration config)
             {
-                weaver = new AspectWeaver(config, this);
+                weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
             }
 
             protected void Advice(Action method, [CallerMemberName] string callerMemberName = null)
