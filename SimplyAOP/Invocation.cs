@@ -31,6 +31,7 @@ namespace SimplyAOP
         public Type TargetType => targetType.Value;
 
         public string MethodName { get; }
+        public bool IsMethodLookupDone => method.IsValueCreated;
         public MethodInfo Method => method.Value;
 
         public T GetAttribute<T>() where T : Attribute

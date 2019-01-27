@@ -150,7 +150,9 @@ namespace SimplyAOP.Tests
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
                 .Callback((Invocation invoc) => {
                     Assert.AreEqual("TestInvocationMethod", invoc.MethodName);
+                    Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethod", invoc.Method.Name);
+                    Assert.IsTrue(invoc.IsMethodLookupDone);
 
                     Assert.IsNotNull(invoc.GetAttribute<TestMethodAttribute>());
                     Assert.IsNull(invoc.GetAttribute<TestClassAttribute>());
@@ -160,7 +162,9 @@ namespace SimplyAOP.Tests
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
                 .Callback(new BeforeStringCallback((Invocation invoc, ref string param) => {
                     Assert.AreEqual("TestInvocationMethodCall", invoc.MethodName);
+                    Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethodCall", invoc.Method.Name);
+                    Assert.IsTrue(invoc.IsMethodLookupDone);
 
                     Assert.IsNull(invoc.GetAttribute<TestMethodAttribute>());
                     Assert.IsNull(invoc.GetAttribute<TestClassAttribute>());
