@@ -8,6 +8,7 @@ namespace SimplyAOP.Example
         {
             var config = new AspectConfiguration();
             config.AddAspect<MethodConsoleTraceAdvice>();
+            config.AddAspect<MethodWatchAdvice>();
 
             ILongRunningService service = new LongRunningService(config);
 

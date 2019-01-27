@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SimplyAOP
@@ -11,6 +12,7 @@ namespace SimplyAOP
         private readonly Lazy<Type> targetType;
         private readonly Lazy<MethodInfo> method;
         private readonly Lazy<Type[]> parameterTypes;
+        private readonly Dictionary<string, object> store = new Dictionary<string, object>();
 
         public Invocation(Lazy<Type> targetType, string methodName, Lazy<Type[]> parameterTypes)
         {
@@ -36,5 +38,10 @@ namespace SimplyAOP
 
         public T GetAttribute<T>() where T : Attribute
             => Method.GetCustomAttribute<T>();
+
+        public object this[string key] {
+            get { return store[key]; }
+            set { store[key] = value; }
+        }
     }
 }

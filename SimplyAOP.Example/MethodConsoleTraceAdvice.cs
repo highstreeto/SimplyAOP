@@ -6,7 +6,7 @@ namespace SimplyAOP.Example
 {
     public class MethodConsoleTraceAdvice : IBeforeAdvice, IAfterAdvice
     {
-        public string Name => "Method Trace";
+        public string Name => "Method Console Trace";
 
         public void Before(Invocation invocation)
             => Console.WriteLine($"Method {invocation.MethodName}() begin");
