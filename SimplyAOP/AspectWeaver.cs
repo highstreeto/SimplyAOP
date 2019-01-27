@@ -11,12 +11,14 @@ namespace SimplyAOP
     public class AspectWeaver
     {
         private readonly AspectConfiguration config;
+        private readonly object target;
         private readonly Lazy<Type> targetType;
 
-        public AspectWeaver(AspectConfiguration config, Lazy<Type> targetType)
+        public AspectWeaver(AspectConfiguration config, object target)
         {
             this.config = config;
-            this.targetType = targetType;
+            this.target = target;
+            this.targetType = new Lazy<Type>(() => this.target.GetType());
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
@@ -121,7 +123,7 @@ namespace SimplyAOP
 
             public Class(AspectConfiguration config)
             {
-                weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+                weaver = new AspectWeaver(config, this);
             }
 
             protected void Advice(Action method, [CallerMemberName] string callerMemberName = null)
