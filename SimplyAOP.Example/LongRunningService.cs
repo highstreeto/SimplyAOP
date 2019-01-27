@@ -21,7 +21,7 @@ namespace SimplyAOP.Example
         public void Execute(int n_)
         {
             Advice(n_, n => {
-                Console.Write("Crunching numbers ... ");
+                Console.Write("  Crunching numbers ... ");
                 var sleepTime = TimeSpan.FromMilliseconds(
                     new Random().Next(n * 500)
                 );
@@ -33,7 +33,7 @@ namespace SimplyAOP.Example
         public int ExecuteSum(int a, int b)
         {
             return Advice((a, b), req => {
-                Console.Write("Summing numbers ... ");
+                Console.Write("  Summing numbers ... ");
                 int result = a + b;
                 Console.WriteLine("Done!");
                 return result;

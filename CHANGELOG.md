@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Key-Value storage added to `Invocation`
+  - This allows for saving data specific to one `Invocation`
+  - Example: Save a Stopwatch and print the elapsed time in `After...()` (see `MethodWatchAdvice` in the example project)
+
 ## [0.1.0] - 2019-01-19
 
 ### Added
