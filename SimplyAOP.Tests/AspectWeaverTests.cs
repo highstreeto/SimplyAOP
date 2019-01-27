@@ -15,7 +15,7 @@ namespace SimplyAOP.Tests
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
-            var weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            var weaver = new AspectWeaver(config, this);
 
             string value = "";
             weaver.Advice(() => { value = "called"; });
@@ -44,7 +44,7 @@ namespace SimplyAOP.Tests
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
-            var weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            var weaver = new AspectWeaver(config, this);
 
             Assert.AreEqual("called", weaver.Advice(() => "called"));
 
@@ -72,30 +72,32 @@ namespace SimplyAOP.Tests
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
-            var weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            var weaver = new AspectWeaver(config, this);
 
             weaver.Advice(() => Assert.Fail("not aborted by before advice"));
         }
 
-        delegate void BeforeCallback(Invocation invocation, ref string arg);
+        delegate void BeforeStringCallback(Invocation invocation, ref string arg);
 
         [TestMethod]
         public void TestBeforeAdviceChangeParam()
         {
             var adviceMock = new Mock<IBeforeAdvice>();
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
+                .Callback(() => throw new InvalidOperationException());
 
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
-                .Callback(new BeforeCallback((Invocation _, ref string arg) => arg = "Changed"));
+                .Callback(new BeforeStringCallback((Invocation _, ref string arg) => arg = "Changed"));
 
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
-            var weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            var weaver = new AspectWeaver(config, this);
 
             weaver.Advice("Not Changed", arg => Assert.AreEqual("Changed", arg));
 
             config = new AspectConfiguration();
-            weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            weaver = new AspectWeaver(config, this);
 
             weaver.Advice("Not Changed", arg => Assert.AreEqual("Not Changed", arg));
         }
@@ -108,7 +110,7 @@ namespace SimplyAOP.Tests
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
-            var weaver = new AspectWeaver(config, new Lazy<Type>(GetType));
+            var weaver = new AspectWeaver(config, this);
 
             string value = "";
             weaver.Advice(() => { value = "called"; });
@@ -140,6 +142,58 @@ namespace SimplyAOP.Tests
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(3));
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+        }
+
+        [TestMethod]
+        public void TestInvocationMethod() {
+            var adviceMock = new Mock<IBeforeAdvice>();
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
+                .Callback((Invocation invoc) => {
+                    Assert.AreEqual("TestInvocationMethod", invoc.MethodName);
+                    Assert.AreEqual("TestInvocationMethod", invoc.Method.Name);
+
+                    Assert.IsNotNull(invoc.GetAttribute<TestMethodAttribute>());
+                    Assert.IsNull(invoc.GetAttribute<TestClassAttribute>());
+
+                    Assert.AreEqual("AspectWeaverTests", invoc.TargetType.Name);
+                });
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
+                .Callback(new BeforeStringCallback((Invocation invoc, ref string param) => {
+                    Assert.AreEqual("TestInvocationMethodCall", invoc.MethodName);
+                    Assert.AreEqual("TestInvocationMethodCall", invoc.Method.Name);
+
+                    Assert.IsNull(invoc.GetAttribute<TestMethodAttribute>());
+                    Assert.IsNull(invoc.GetAttribute<TestClassAttribute>());
+
+                    Assert.AreEqual("AspectWeaverTests", invoc.TargetType.Name);
+                })
+            );
+
+            var config = new AspectConfiguration()
+                .AddAspect(adviceMock.Object);
+
+            var weaver = new AspectWeaver(config, this);
+
+            string value = "";
+            weaver.Advice(() => value = "2");
+            Assert.AreEqual("2", value);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+
+            value = weaver.Advice(() => "3");
+            Assert.AreEqual("3", value);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+
+            value = weaver.Advice("4", (string a) => a, "TestInvocationMethodCall");
+            Assert.AreEqual("4", value);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+        }
+
+        private string TestInvocationMethodCall(string param)
+        {
+            return param;
         }
     }
 }
