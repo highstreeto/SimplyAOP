@@ -3,6 +3,7 @@
 var target = Argument("target", "Build");
 var version = Argument("version", "0.1.0");
 var verbosity = Argument("verbosity", DotNetCoreVerbosity.Minimal);
+var coverageReport = Argument("coverageReport", false);
 
 Task("Build")
     .IsDependentOn("Build-Only");
@@ -23,10 +24,11 @@ Task("Test-Only").Does(() =>
             .Append("/p:CollectCoverage=true")
             .Append("/p:CoverletOutputFormat=opencover")
     });
-    ReportGenerator(
-        "SimplyAOP.Tests/coverage.opencover.xml",
-        "TestCoverage"
-    );
+    if (coverageReport)
+        ReportGenerator(
+            "SimplyAOP.Tests/coverage.opencover.xml",
+            "TestCoverage"
+        );
 });
 
 Task("Package")
