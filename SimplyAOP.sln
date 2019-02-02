@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyAOP", "SimplyAOP\Simp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyAOP.Tests", "SimplyAOP.Tests\SimplyAOP.Tests.csproj", "{88712708-9296-4DC6-B263-D4B0F07FCBCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyAOP.Example", "SimplyAOP.Example\SimplyAOP.Example.csproj", "{76B30952-B9F6-4A2D-A860-216849F8EB5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyAOP.Example", "SimplyAOP.Example\SimplyAOP.Example.csproj", "{76B30952-B9F6-4A2D-A860-216849F8EB5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83DF20F6-239B-42D4-A5E9-7E8CCFCA93A5}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
