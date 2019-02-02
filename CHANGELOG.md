@@ -8,9 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Key-Value storage added to `Invocation`
+- Key-Value store added to `Invocation`
   - This allows for saving data specific to one `Invocation`
   - Example: Save a Stopwatch and print the elapsed time in `After...()` (see `MethodWatchAdvice` in the example project)
+
+### Changed
+
+- Lookup of Method now includes parameter types
+  - Was only based on name
+  - Now the parameters are determined by TParam (extracted if it is a `ValueTuple`)
 
 ## [0.1.0] - 2019-01-19
 
