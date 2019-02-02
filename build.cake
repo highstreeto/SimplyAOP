@@ -1,4 +1,4 @@
-#tool "nuget:?package=JetBrains.dotCover.CommandLineTools&version=2018.3.1"
+#tool "nuget:?package=ReportGenerator&version=4.0.9"
 
 var target = Argument("target", "Build");
 var version = Argument("version", "0.1.0");
@@ -19,8 +19,14 @@ Task("Test")
 Task("Test-Only").Does(() =>
 {
     DotNetCoreTest("SimplyAOP.Tests", new DotNetCoreTestSettings() {
-        ArgumentCustomization = args => args.Append("/p:CollectCoverage=true")
+        ArgumentCustomization = args => args
+            .Append("/p:CollectCoverage=true")
+            .Append("/p:CoverletOutputFormat=opencover")
     });
+    ReportGenerator(
+        "SimplyAOP.Tests/coverage.opencover.xml",
+        "TestCoverage"
+    );
 });
 
 Task("Package")
