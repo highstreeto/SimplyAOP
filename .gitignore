@@ -2,7 +2,8 @@
 tools/*
 
 # Generated Files
-coverage.json
+/TestCoverage
+coverage.opencover.xml
 
 # Visual Studio Code
 
