@@ -48,7 +48,10 @@
       }
     ]]></description>
     <releaseNotes><![CDATA[
-      TODO
+      ### Changed
+      
+        - Add basic example and more details to README
+          - Used for NuGet description
     ]]></releaseNotes>
     <copyright>Copyright (c) 2019 Martin Hochstrasser</copyright>
     <tags>AOP</tags>

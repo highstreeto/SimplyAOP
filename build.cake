@@ -1,7 +1,7 @@
 #tool "nuget:?package=ReportGenerator&version=4.0.9"
 
 var target = Argument("target", "Build");
-var version = Argument("pversion", "0.2.0");
+var version = Argument("pversion", "0.2.1");
 var verbosity = Argument("verbosity", DotNetCoreVerbosity.Minimal);
 
 Task("Build")
