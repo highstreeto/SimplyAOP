@@ -18,7 +18,7 @@ So SimplyAOP doesn't need to create the instance of the target class so it can b
 
 ## Basic Example
 
-For a more detailed example see [SimplyAOP.Example](/SimplayAOP.Example)
+For a more detailed example see [SimplyAOP.Example](/tree/master/SimplyAOP.Example)
 
 ```csharp
 var config = new AspectConfiguration();
