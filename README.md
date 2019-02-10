@@ -18,8 +18,6 @@ So SimplyAOP doesn't need to create the instance of the target class so it can b
 
 ## Basic Example
 
-For a more detailed example see [SimplyAOP.Example](/tree/master/SimplyAOP.Example)
-
 ```csharp
 var config = new AspectConfiguration();
 config.AddAspect<MethodConsoleTraceAdvice>();
@@ -44,3 +42,5 @@ class MethodConsoleTraceAdvice : IBeforeAdvice {
         => Console.WriteLine($"Method {invocation.MethodName}({parameter}) begin");
 }
 ```
+
+For a more detailed example see [SimplyAOP.Example](https://github.com/highstreeto/SimplyAOP/tree/master/SimplyAOP.Example)
