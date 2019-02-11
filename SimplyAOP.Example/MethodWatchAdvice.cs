@@ -19,15 +19,13 @@ namespace SimplyAOP.Example
         public void AfterThrowing(Invocation invocation, ref Exception exception)
             => StopWatch(invocation);
 
-        private void StartWatch(Invocation invocation)
-        {
+        private void StartWatch(Invocation invocation) {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             invocation["watch"] = stopwatch;
         }
 
-        private void StopWatch(Invocation invocation)
-        {
+        private void StopWatch(Invocation invocation) {
             var stopwatch = (Stopwatch)invocation["watch"];
             stopwatch.Stop();
             Console.WriteLine($"  {invocation.MethodName}(...) took {stopwatch.Elapsed}");

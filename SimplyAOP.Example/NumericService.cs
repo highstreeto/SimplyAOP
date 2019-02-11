@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SimplyAOP.Example
 {
@@ -29,8 +26,7 @@ namespace SimplyAOP.Example
             });
         }
 
-        public void Execute(int n_)
-        {
+        public void Execute(int n_) {
             Advice(n_, n => {
                 if (n < 0) {
                     throw new ArgumentOutOfRangeException(nameof(n), n, "N must be positive!");
@@ -45,8 +41,7 @@ namespace SimplyAOP.Example
             });
         }
 
-        public int Sum(int a, int b)
-        {
+        public int Sum(int a, int b) {
             return Advice((a, b), req => {
                 Console.Write("  Summing numbers ... ");
                 int result = a + b;

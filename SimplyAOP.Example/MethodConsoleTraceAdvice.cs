@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimplyAOP.Example
 {
@@ -10,7 +8,7 @@ namespace SimplyAOP.Example
 
         public void Before(Invocation invocation)
             => Console.WriteLine($"Method {invocation.MethodName}() begin");
-        public void Before<TParam>(Invocation invocation, ref TParam parameter) 
+        public void Before<TParam>(Invocation invocation, ref TParam parameter)
             => Console.WriteLine($"Method {invocation.MethodName}({parameter}) begin");
 
         public void AfterReturning(Invocation invocation)

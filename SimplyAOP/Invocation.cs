@@ -14,8 +14,7 @@ namespace SimplyAOP
         private readonly Lazy<Type[]> parameterTypes;
         private readonly Dictionary<string, object> store = new Dictionary<string, object>();
 
-        public Invocation(Lazy<Type> targetType, string methodName, Lazy<Type[]> parameterTypes)
-        {
+        public Invocation(Lazy<Type> targetType, string methodName, Lazy<Type[]> parameterTypes) {
             MethodName = methodName;
             this.targetType = targetType;
             this.parameterTypes = parameterTypes;

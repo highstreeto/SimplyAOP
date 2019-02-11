@@ -1,9 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SimplyAOP.Tests
 {
@@ -41,15 +39,13 @@ namespace SimplyAOP.Tests
         public void AfterThrowing(Invocation invocation, ref Exception exception)
             => StopWatch(invocation);
 
-        private void StartWatch(Invocation invocation)
-        {
+        private void StartWatch(Invocation invocation) {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             invocation["watch"] = stopwatch;
         }
 
-        private void StopWatch(Invocation invocation)
-        {
+        private void StopWatch(Invocation invocation) {
             var stopwatch = (Stopwatch)invocation["watch"];
             stopwatch.Stop();
             TotalElapsed += stopwatch.Elapsed;

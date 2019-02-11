@@ -4,8 +4,7 @@ namespace SimplyAOP.Example
 {
     static class Program
     {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
             var config = new AspectConfiguration();
             config.AddAspect<MethodConsoleTraceAdvice>();
             config.AddAspect<TranslationalAdvice>();
@@ -16,12 +15,9 @@ namespace SimplyAOP.Example
             service.Random();
             service.Random();
 
-            try
-            {
+            try {
                 service.Execute(n: -1);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
+            } catch (ArgumentOutOfRangeException) {
                 Console.WriteLine("Caught ArgumentOutOfRangeException");
             }
             service.Execute(n: 10);

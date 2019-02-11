@@ -1,6 +1,6 @@
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 
 namespace SimplyAOP.Tests
 {
@@ -8,8 +8,7 @@ namespace SimplyAOP.Tests
     public class AspectWeaverTests
     {
         [TestMethod]
-        public void TestBasicBeforeAdvice()
-        {
+        public void TestBasicBeforeAdvice() {
             var adviceMock = new Mock<IBeforeAdvice>();
 
             var config = new AspectConfiguration()
@@ -37,8 +36,7 @@ namespace SimplyAOP.Tests
         }
 
         [TestMethod]
-        public void TestBeforeAdviceWithResult()
-        {
+        public void TestBeforeAdviceWithResult() {
             var adviceMock = new Mock<IBeforeAdvice>();
 
             var config = new AspectConfiguration()
@@ -63,8 +61,7 @@ namespace SimplyAOP.Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void TestBeforeAdviceAbort()
-        {
+        public void TestBeforeAdviceAbort() {
             var adviceMock = new Mock<IBeforeAdvice>();
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
                 .Callback(() => throw new InvalidOperationException());
@@ -80,8 +77,7 @@ namespace SimplyAOP.Tests
         delegate void BeforeStringCallback(Invocation invocation, ref string arg);
 
         [TestMethod]
-        public void TestBeforeAdviceChangeParam()
-        {
+        public void TestBeforeAdviceChangeParam() {
             var adviceMock = new Mock<IBeforeAdvice>();
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
                 .Callback(() => throw new InvalidOperationException());
@@ -103,8 +99,7 @@ namespace SimplyAOP.Tests
         }
 
         [TestMethod]
-        public void TestBasicAfterAdvice()
-        {
+        public void TestBasicAfterAdvice() {
             var adviceMock = new Mock<IAfterAdvice>();
 
             var config = new AspectConfiguration()
@@ -136,8 +131,7 @@ namespace SimplyAOP.Tests
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Never);
 
-            Assert.ThrowsException<Exception>(() =>
-            {
+            Assert.ThrowsException<Exception>(() => {
                 weaver.Advice(() => { throw new Exception(); });
             });
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(3));
@@ -146,12 +140,10 @@ namespace SimplyAOP.Tests
         }
 
         [TestMethod]
-        public void TestInvocationMethod()
-        {
+        public void TestInvocationMethod() {
             var adviceMock = new Mock<IBeforeAdvice>();
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
-                .Callback((Invocation invoc) =>
-                {
+                .Callback((Invocation invoc) => {
                     Assert.AreEqual("TestInvocationMethod", invoc.MethodName);
                     Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethod", invoc.Method.Name);
@@ -163,8 +155,7 @@ namespace SimplyAOP.Tests
                     Assert.AreEqual("AspectWeaverTests", invoc.TargetType.Name);
                 });
             adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
-                .Callback(new BeforeStringCallback((Invocation invoc, ref string param) =>
-                {
+                .Callback(new BeforeStringCallback((Invocation invoc, ref string param) => {
                     Assert.AreEqual("TestInvocationMethodCall", invoc.MethodName);
                     Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethodCall", invoc.Method.Name);
@@ -199,39 +190,32 @@ namespace SimplyAOP.Tests
             adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
         }
 
-        private string TestInvocationMethodCall(string param)
-        {
+        private string TestInvocationMethodCall(string param) {
             return param;
         }
 
         [TestMethod]
-        public void TestThrowException()
-        {
+        public void TestThrowException() {
             var adviceMock = new Mock<IAfterAdvice>();
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
             var weaver = new AspectWeaver(config, this);
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
+            Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(() => throw new InvalidOperationException());
             });
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
+            Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(0, p => throw new InvalidOperationException());
             });
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(2));
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                weaver.Advice(() =>
-                {
+            Assert.ThrowsException<InvalidOperationException>(() => {
+                weaver.Advice(() => {
                     int a = 0;
-                    if (a == 0)
-                    {
+                    if (a == 0) {
                         throw new InvalidOperationException();
                     }
                     return 0;
@@ -239,12 +223,9 @@ namespace SimplyAOP.Tests
             });
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(3));
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                weaver.Advice(0, p =>
-                {
-                    if (p == 0)
-                    {
+            Assert.ThrowsException<InvalidOperationException>(() => {
+                weaver.Advice(0, p => {
+                    if (p == 0) {
                         throw new InvalidOperationException();
                     }
                     return 0;
@@ -256,11 +237,10 @@ namespace SimplyAOP.Tests
         delegate void AfterThrowingCallBack(Invocation invocation, ref Exception ex);
 
         [TestMethod]
-        public void TestChangeThrownException()
-        {
+        public void TestChangeThrownException() {
             var adviceMock = new Mock<IAfterAdvice>();
             adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
-                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex) 
+                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex)
                     => ex = new NotSupportedException()));
 
             var config = new AspectConfiguration()
@@ -268,8 +248,7 @@ namespace SimplyAOP.Tests
 
             var weaver = new AspectWeaver(config, this);
 
-            Assert.ThrowsException<NotSupportedException>(() =>
-            {
+            Assert.ThrowsException<NotSupportedException>(() => {
                 weaver.Advice(() => throw new InvalidOperationException());
             });
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);
@@ -281,8 +260,7 @@ namespace SimplyAOP.Tests
         }
 
         [TestMethod]
-        public void TestNullThrownException()
-        {
+        public void TestNullThrownException() {
             var adviceMock = new Mock<IAfterAdvice>();
             adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
                 .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex)
@@ -293,8 +271,7 @@ namespace SimplyAOP.Tests
 
             var weaver = new AspectWeaver(config, this);
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
+            Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(() => throw new NotSupportedException());
             });
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);

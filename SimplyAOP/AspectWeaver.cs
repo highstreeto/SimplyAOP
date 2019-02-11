@@ -14,27 +14,24 @@ namespace SimplyAOP
         private readonly object target;
         private readonly Lazy<Type> targetType;
 
-        public AspectWeaver(AspectConfiguration config, object target)
-        {
+        public AspectWeaver(AspectConfiguration config, object target) {
             this.config = config;
             this.target = target;
             this.targetType = new Lazy<Type>(() => this.target.GetType());
         }
 
-        public void Advice(Action method, [CallerMemberName] string callerMemberName = null)
-        {
+        public void Advice(Action method, [CallerMemberName] string callerMemberName = null) {
             var invocation = new Invocation(targetType, callerMemberName,
                 new Lazy<Type[]>(() => Type.EmptyTypes));
-            try
-            {
+            try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
+
                 method();
+
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
                 if (ex == null)
@@ -43,20 +40,18 @@ namespace SimplyAOP
             }
         }
 
-        public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null)
-        {
+        public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null) {
             var invocation = new Invocation(targetType, callerMemberName,
                 DetermineParameterTypes(param));
-            try
-            {
+            try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation, ref param);
+
                 method(param);
+
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
                 if (ex == null)
@@ -65,21 +60,19 @@ namespace SimplyAOP
             }
         }
 
-        public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null)
-        {
+        public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null) {
             var invocation = new Invocation(targetType, callerMemberName,
                 new Lazy<Type[]>(() => Type.EmptyTypes));
-            try
-            {
+            try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
+
                 var result = method();
+
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation, ref result);
                 return result;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
                 if (ex == null)
@@ -89,21 +82,19 @@ namespace SimplyAOP
             }
         }
 
-        public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
-        {
+        public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null) {
             var invocation = new Invocation(targetType, callerMemberName,
                 DetermineParameterTypes(param));
-            try
-            {
+            try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation, ref param);
+
                 var result = method(param);
+
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation, ref result);
                 return result;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
                 if (ex == null)
@@ -113,12 +104,10 @@ namespace SimplyAOP
             }
         }
 
-        private static Lazy<Type[]> DetermineParameterTypes<TParam>(TParam param)
-        {
+        private static Lazy<Type[]> DetermineParameterTypes<TParam>(TParam param) {
             return new Lazy<Type[]>(() => {
                 var paramType = typeof(TParam);
-                if (paramType.FullName.StartsWith("System.ValueTuple"))
-                {
+                if (paramType.FullName.StartsWith("System.ValueTuple")) {
                     return paramType.GenericTypeArguments;
                 }
                 return new[] { param.GetType() };
@@ -129,8 +118,7 @@ namespace SimplyAOP
         {
             private readonly AspectWeaver weaver;
 
-            public Class(AspectConfiguration config)
-            {
+            public Class(AspectConfiguration config) {
                 weaver = new AspectWeaver(config, this);
             }
 
@@ -150,8 +138,7 @@ namespace SimplyAOP
         private readonly List<IBeforeAdvice> beforeAdvices;
         private readonly List<IAfterAdvice> afterAdvices;
 
-        public AspectConfiguration()
-        {
+        public AspectConfiguration() {
             beforeAdvices = new List<IBeforeAdvice>();
             afterAdvices = new List<IAfterAdvice>();
         }
@@ -163,8 +150,7 @@ namespace SimplyAOP
         public AspectConfiguration AddAspect<TAspect>() where TAspect : IAspect, new()
             => AddAspect(new TAspect());
 
-        public AspectConfiguration AddAspect(IAspect aspect)
-        {
+        public AspectConfiguration AddAspect(IAspect aspect) {
             if (aspect is IBeforeAdvice before)
                 beforeAdvices.Add(before);
             if (aspect is IAfterAdvice after)
