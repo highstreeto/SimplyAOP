@@ -6,21 +6,36 @@ using System.Threading.Tasks;
 
 namespace SimplyAOP.Example
 {
-    public interface ILongRunningService
+    public interface INumericService
     {
-        void Execute(int n);
+        int Random();
 
-        int ExecuteSum(int a, int b);
+        int Sum(int a, int b);
+
+        void Execute(int n);
     }
 
-    public class LongRunningService : AspectWeaver.Class, ILongRunningService
+    public class NumericService : AspectWeaver.Class, INumericService
     {
-        public LongRunningService(AspectConfiguration config)
-            : base(config) { }
+        private Random random;
+
+        public NumericService(AspectConfiguration config) : base(config) {
+            this.random = new Random();
+        }
+
+        public int Random() {
+            return Advice(() => {
+                return random.Next();
+            });
+        }
 
         public void Execute(int n_)
         {
             Advice(n_, n => {
+                if (n < 0) {
+                    throw new ArgumentOutOfRangeException(nameof(n), n, "N must be positive!");
+                }
+
                 Console.Write("  Crunching numbers ... ");
                 var sleepTime = TimeSpan.FromMilliseconds(
                     new Random().Next(n * 500)
@@ -30,7 +45,7 @@ namespace SimplyAOP.Example
             });
         }
 
-        public int ExecuteSum(int a, int b)
+        public int Sum(int a, int b)
         {
             return Advice((a, b), req => {
                 Console.Write("  Summing numbers ... ");
