@@ -8,15 +8,27 @@ namespace SimplyAOP.Example
         {
             var config = new AspectConfiguration();
             config.AddAspect<MethodConsoleTraceAdvice>();
+            config.AddAspect<TranslationalAdvice>();
             config.AddAspect<MethodWatchAdvice>();
 
-            ILongRunningService service = new LongRunningService(config);
+            INumericService service = new NumericService(config);
 
+            service.Random();
+            service.Random();
+
+            try
+            {
+                service.Execute(n: -1);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Caught ArgumentOutOfRangeException");
+            }
             service.Execute(n: 10);
             service.Execute(n: 1);
 
-            service.ExecuteSum(a: 1, b: -1);
-            service.ExecuteSum(a: 100, b: 0);
+            service.Sum(a: 1, b: -1);
+            service.Sum(a: 100, b: 0);
         }
     }
 }
