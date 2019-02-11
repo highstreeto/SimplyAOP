@@ -25,6 +25,24 @@ namespace SimplyAOP.Example
 
             service.Sum(a: 1, b: -1);
             service.Sum(a: 100, b: 0);
+
+            FuzzTest();
+        }
+
+        static void FuzzTest() {
+            var config = new AspectConfiguration();
+            config.AddAspect<FuzzerAdvice>();
+            config.AddAspect<MethodConsoleTraceAdvice>();
+
+            var service = new NumericService(config);
+
+            string sep = new string('-', 15);
+
+            Console.WriteLine($"{sep} Begin Fuzz Sum() {sep}");
+            for (int i = 0; i < 128; i++) {
+                service.Sum(0, 0);
+            }
+            Console.WriteLine($"{sep} End Fuzz {sep}");
         }
     }
 }

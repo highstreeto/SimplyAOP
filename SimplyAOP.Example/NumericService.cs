@@ -44,7 +44,7 @@ namespace SimplyAOP.Example
         public int Sum(int a, int b) {
             return Advice((a, b), req => {
                 Console.Write("  Summing numbers ... ");
-                int result = a + b;
+                int result = req.a + req.b;
                 Console.WriteLine("Done!");
                 return result;
             });
