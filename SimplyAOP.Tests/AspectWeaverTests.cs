@@ -252,5 +252,57 @@ namespace SimplyAOP.Tests
             });
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(4));
         }
+
+        delegate void AfterThrowingCallBack(Invocation invocation, ref Exception ex);
+
+        [TestMethod]
+        public void TestChangeThrownException()
+        {
+            var adviceMock = new Mock<IAfterAdvice>();
+            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
+                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex) 
+                    => ex = new NotSupportedException()));
+
+            var config = new AspectConfiguration()
+                .AddAspect(adviceMock.Object);
+
+            var weaver = new AspectWeaver(config, this);
+
+            Assert.ThrowsException<NotSupportedException>(() =>
+            {
+                weaver.Advice(() => throw new InvalidOperationException());
+            });
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+
+            weaver.Advice(() => { });
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+        }
+
+        [TestMethod]
+        public void TestNullThrownException()
+        {
+            var adviceMock = new Mock<IAfterAdvice>();
+            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
+                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex)
+                    => ex = null));
+
+            var config = new AspectConfiguration()
+                .AddAspect(adviceMock.Object);
+
+            var weaver = new AspectWeaver(config, this);
+
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                weaver.Advice(() => throw new NotSupportedException());
+            });
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+
+            weaver.Advice(() => { });
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+        }
     }
 }

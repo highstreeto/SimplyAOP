@@ -37,6 +37,8 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
                 ExceptionDispatchInfo.Capture(ex).Throw();
             }
         }
@@ -57,6 +59,8 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
                 ExceptionDispatchInfo.Capture(ex).Throw();
             }
         }
@@ -78,6 +82,8 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
                 ExceptionDispatchInfo.Capture(ex).Throw();
                 return default(TResult);
             }
@@ -100,6 +106,8 @@ namespace SimplyAOP
             {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
                 ExceptionDispatchInfo.Capture(ex).Throw();
                 return default(TResult);
             }
