@@ -19,23 +19,18 @@ namespace SimplyAOP.Example
         public void AfterThrowing(Invocation invocation, ref Exception exception)
             => EndTransaction(invocation, rollback: true);
 
-        private void BeginTransaction(Invocation invocation)
-        {
+        private void BeginTransaction(Invocation invocation) {
             var scope = new TransactionScope();
             invocation["txScope"] = scope;
             Console.WriteLine(" TX Start");
         }
 
-        private void EndTransaction(Invocation invocation, bool rollback)
-        {
+        private void EndTransaction(Invocation invocation, bool rollback) {
             var scope = (TransactionScope)invocation["txScope"];
-            if (!rollback)
-            {
+            if (!rollback) {
                 Console.WriteLine(" TX Complete");
                 scope.Complete();
-            }
-            else
-            {
+            } else {
                 Console.WriteLine(" TX Rollback");
             }
             scope.Dispose();
