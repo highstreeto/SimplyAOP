@@ -27,7 +27,8 @@ namespace SimplyAOP
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
 
-                method();
+                if (!invocation.IsSkippingMethod)
+                    method();
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
@@ -47,7 +48,8 @@ namespace SimplyAOP
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation, ref param);
 
-                method(param);
+                if (!invocation.IsSkippingMethod)
+                    method(param);
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
@@ -67,7 +69,9 @@ namespace SimplyAOP
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
 
-                var result = method();
+                var result = invocation.IsSkippingMethod
+                    ? default(TResult)
+                    : method();
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation, ref result);
@@ -89,7 +93,9 @@ namespace SimplyAOP
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation, ref param);
 
-                var result = method(param);
+                var result = invocation.IsSkippingMethod
+                    ? default(TResult)
+                    : method(param);
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation, ref result);
