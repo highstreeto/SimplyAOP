@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changing exception to null in `AfterThrowing()` now leads to InvalidOperationException
+
 ## [0.2.1] - 2019-02-10
 
 ### Changed
