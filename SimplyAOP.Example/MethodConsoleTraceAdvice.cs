@@ -18,6 +18,9 @@ namespace SimplyAOP.Example
         public void AfterReturning<TResult>(Invocation invocation, ref TResult result)
             => Console.WriteLine($"Method {invocation.MethodName}() = {result} end");
         public void AfterThrowing(Invocation invocation, ref Exception exception)
-            => Console.WriteLine($"Method {invocation.MethodName}() ! {exception} end");
+            => Console.WriteLine($"Method {invocation.MethodName}() ! {ToOneLine(exception)} end");
+
+        private string ToOneLine(Exception exception)
+            => $"{exception.GetType().Name}: {exception.Message.Replace(Environment.NewLine, " ")}";
     }
 }
