@@ -35,8 +35,23 @@ namespace SimplyAOP
         public bool IsMethodLookupDone => method.IsValueCreated;
         public MethodInfo Method => method.Value;
 
+        public bool IsSkippingMethod { get; private set; }
+
+        public void SkipMethod()
+            => IsSkippingMethod = true;
+
         public T GetAttribute<T>() where T : Attribute
             => Method.GetCustomAttribute<T>();
+
+        public bool TryGetEntry(string key, out object value) {
+            if (store.ContainsKey(key)) {
+                value = store[key];
+                return true;
+            } else {
+                value = null;
+                return false;
+            }
+        }
 
         public object this[string key] {
             get { return store[key]; }

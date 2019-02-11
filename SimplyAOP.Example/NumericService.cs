@@ -9,7 +9,7 @@ namespace SimplyAOP.Example
 
         int Sum(int a, int b);
 
-        void Execute(int n);
+        int Execute(int n);
     }
 
     public class NumericService : AspectWeaver.Class, INumericService
@@ -26,8 +26,8 @@ namespace SimplyAOP.Example
             });
         }
 
-        public void Execute(int n_) {
-            Advice(n_, n => {
+        public int Execute(int n_) {
+            return Advice(n_, n => {
                 if (n < 0) {
                     throw new ArgumentOutOfRangeException(nameof(n), n, "N must be positive!");
                 }
@@ -38,6 +38,8 @@ namespace SimplyAOP.Example
                 );
                 Thread.Sleep(sleepTime);
                 Console.WriteLine("Done!");
+
+                return n * 500;
             });
         }
 

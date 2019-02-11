@@ -281,5 +281,27 @@ namespace SimplyAOP.Tests
             adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
             adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
         }
+
+        [TestMethod]
+        public void TestSkipCall() {
+            var adviceMock = new Mock<IBeforeAdvice>();
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
+                .Callback((Invocation invoc) => invoc.SkipMethod());
+
+            var config = new AspectConfiguration()
+                .AddAspect(adviceMock.Object);
+
+            var weaver = new AspectWeaver(config, this);
+
+            weaver.Advice(() => throw new NotSupportedException());
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+
+            Assert.ThrowsException<NotSupportedException>(() => {
+                weaver.Advice(0, (int a) => throw new NotSupportedException());
+            });
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+        }
     }
 }

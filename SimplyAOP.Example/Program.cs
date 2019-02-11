@@ -4,6 +4,8 @@ namespace SimplyAOP.Example
 {
     static class Program
     {
+        static string sep = new string('-', 15);
+
         static void Main(string[] args) {
             var config = new AspectConfiguration();
             config.AddAspect<MethodConsoleTraceAdvice>();
@@ -23,6 +25,16 @@ namespace SimplyAOP.Example
             service.Execute(n: 10);
             service.Execute(n: 1);
 
+            config.AddAspect<ResultCacheAdvice>();
+            Console.WriteLine($"{sep} Begin Caching {sep}");
+            service.Execute(n: 10);
+            service.Execute(n: 10);
+            service.Execute(n: 10);
+            service.Execute(n: 1);
+            service.Execute(n: 1);
+            service.Execute(n: 1);
+            Console.WriteLine($"{sep} End Caching {sep}");
+
             service.Sum(a: 1, b: -1);
             service.Sum(a: 100, b: 0);
 
@@ -36,10 +48,8 @@ namespace SimplyAOP.Example
 
             var service = new NumericService(config);
 
-            string sep = new string('-', 15);
-
             Console.WriteLine($"{sep} Begin Fuzz Sum() {sep}");
-            for (int i = 0; i < 128; i++) {
+            for (int i = 0; i < 16; i++) {
                 service.Sum(0, 0);
             }
             Console.WriteLine($"{sep} End Fuzz {sep}");
