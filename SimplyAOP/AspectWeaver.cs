@@ -21,8 +21,7 @@ namespace SimplyAOP
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation(targetType, callerMemberName,
-                new Lazy<Type[]>(() => Type.EmptyTypes));
+            var invocation = new Invocation<ValueTuple, ValueTuple>(targetType, callerMemberName);
             try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
@@ -42,14 +41,13 @@ namespace SimplyAOP
         }
 
         public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation(targetType, callerMemberName,
-                DetermineParameterTypes(param));
+            var invocation = new Invocation<TParam, ValueTuple>(targetType, callerMemberName, param);
             try {
                 foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation, ref param);
+                    advice.Before(invocation);
 
                 if (!invocation.IsSkippingMethod)
-                    method(param);
+                    method(invocation.Parameter);
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
@@ -63,19 +61,18 @@ namespace SimplyAOP
         }
 
         public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation(targetType, callerMemberName,
-                new Lazy<Type[]>(() => Type.EmptyTypes));
+            var invocation = new Invocation<ValueTuple, TResult>(targetType, callerMemberName);
             try {
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
 
-                var result = invocation.IsSkippingMethod
+                invocation.Result = invocation.IsSkippingMethod
                     ? default(TResult)
                     : method();
 
                 foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation, ref result);
-                return result;
+                    advice.AfterReturning(invocation);
+                return invocation.Result;
             } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
@@ -87,19 +84,17 @@ namespace SimplyAOP
         }
 
         public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation(targetType, callerMemberName,
-                DetermineParameterTypes(param));
+            var invocation = new Invocation<TParam, TResult>(targetType, callerMemberName, param);
             try {
                 foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation, ref param);
+                    advice.Before(invocation);
 
-                var result = invocation.IsSkippingMethod
-                    ? default(TResult)
-                    : method(param);
+                if (!invocation.IsSkippingMethod)
+                    invocation.Result = method(invocation.Parameter);
 
                 foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation, ref result);
-                return result;
+                    advice.AfterReturning(invocation);
+                return invocation.Result;
             } catch (Exception ex) {
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterThrowing(invocation, ref ex);
@@ -108,16 +103,6 @@ namespace SimplyAOP
                 ExceptionDispatchInfo.Capture(ex).Throw();
                 return default(TResult);
             }
-        }
-
-        private static Lazy<Type[]> DetermineParameterTypes<TParam>(TParam param) {
-            return new Lazy<Type[]>(() => {
-                var paramType = typeof(TParam);
-                if (paramType.FullName.StartsWith("System.ValueTuple")) {
-                    return paramType.GenericTypeArguments;
-                }
-                return new[] { param.GetType() };
-            });
         }
 
         public class Class

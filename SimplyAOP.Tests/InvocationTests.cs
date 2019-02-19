@@ -27,25 +27,21 @@ namespace SimplyAOP.Tests
 
         public TimeSpan TotalElapsed { get; private set; }
 
-        public void Before(Invocation invocation)
-            => StartWatch(invocation);
-        public void Before<TParam>(Invocation invocation, ref TParam parameter)
+        public void Before<TParam, TResult>(Invocation<TParam, TResult> invocation)
             => StartWatch(invocation);
 
-        public void AfterReturning(Invocation invocation)
+        public void AfterReturning<TParam, TResult>(Invocation<TParam, TResult> invocation)
             => StopWatch(invocation);
-        public void AfterReturning<TResult>(Invocation invocation, ref TResult result)
-            => StopWatch(invocation);
-        public void AfterThrowing(Invocation invocation, ref Exception exception)
+        public void AfterThrowing<TParam, TResult>(Invocation<TParam, TResult> invocation, ref Exception exception)
             => StopWatch(invocation);
 
-        private void StartWatch(Invocation invocation) {
+        private void StartWatch<TParam, TResult>(Invocation<TParam, TResult> invocation) {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             invocation["watch"] = stopwatch;
         }
 
-        private void StopWatch(Invocation invocation) {
+        private void StopWatch<TParam, TResult>(Invocation<TParam, TResult> invocation) {
             var stopwatch = (Stopwatch)invocation["watch"];
             stopwatch.Stop();
             TotalElapsed += stopwatch.Elapsed;

@@ -17,9 +17,7 @@ namespace SimplyAOP
     /// </summary>
     public interface IBeforeAdvice : IAspect
     {
-        void Before(Invocation invocation);
-
-        void Before<TParam>(Invocation invocation, ref TParam parameter);
+        void Before<TParam, TResult>(Invocation<TParam, TResult> invocation);
     }
 
     /// <summary>
@@ -28,10 +26,8 @@ namespace SimplyAOP
     /// </summary>
     public interface IAfterAdvice : IAspect
     {
-        void AfterReturning(Invocation invocation);
+        void AfterReturning<TParam, TResult>(Invocation<TParam, TResult> invocation);
 
-        void AfterReturning<TResult>(Invocation invocation, ref TResult result);
-
-        void AfterThrowing(Invocation invocation, ref Exception exception);
+        void AfterThrowing<TParam, TResult>(Invocation<TParam, TResult> invocation, ref Exception exception);
     }
 }

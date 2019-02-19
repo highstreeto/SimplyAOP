@@ -12,16 +12,12 @@ namespace SimplyAOP.Example
 
         public string Name => "Fuzz Testing (Parameters are reset by this!)";
 
-        public void Before(Invocation invocation) {
-            // NOP
-        }
-
-        public void Before<TParam>(Invocation invocation, ref TParam parameter) {
-            if (parameter is int) {
-                parameter = (TParam)(object)random.Next(int.MinValue, int.MaxValue);
+        public void Before<TParam, TResult>(Invocation<TParam, TResult> invocation) {
+            if (invocation.TryCastParameter(out IInvokeWithParameter<int> intInvoc)) {
+                intInvoc.Parameter = random.Next(int.MinValue, int.MaxValue);
             }
-            if (parameter is ValueTuple<int, int> req) {
-                parameter = (TParam)(object)(
+            if (invocation.TryCastParameter(out IInvokeWithParameter<(int, int)> intsInvoc)) {
+                intsInvoc.Parameter = (
                     random.Next(int.MinValue, int.MaxValue),
                     random.Next(int.MinValue, int.MaxValue)
                 );
