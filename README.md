@@ -36,10 +36,8 @@ class Target : AspectWeaver.Class {
 
 class MethodConsoleTraceAdvice : IBeforeAdvice {
     public string Name => "Method Console Trace";
-    public void Before(Invocation invocation)
-        => Console.WriteLine($"Method {invocation.MethodName}() begin");
-    public void Before<TParam>(Invocation invocation, ref TParam parameter) 
-        => Console.WriteLine($"Method {invocation.MethodName}({parameter}) begin");
+    public void Before<TParam, TResult>(Invocation<TParam, TResult> invocation)
+        => Console.WriteLine($"Method {invocation.MethodName}({invocation.Parameter}) begin");
 }
 ```
 
