@@ -20,20 +20,21 @@ namespace SimplyAOP.Tests
             weaver.Advice(() => { value = "called"; });
             Assert.AreEqual("called", value);
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
 
             weaver.Advice("called2", arg => { value = arg; });
             Assert.AreEqual("called2", value);
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
 
             weaver.Advice(() => { value = "called3"; });
             Assert.AreEqual("called3", value);
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
         }
+
 
         [TestMethod]
         public void TestBeforeAdviceWithResult() {
@@ -46,44 +47,47 @@ namespace SimplyAOP.Tests
 
             Assert.AreEqual("called", weaver.Advice(() => "called"));
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Never);
 
             Assert.AreEqual("called2", weaver.Advice("called2", arg => arg));
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, string>>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Never);
 
             Assert.AreEqual("called3", weaver.Advice(() => "called3"));
 
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()), Times.Exactly(2));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void TestBeforeAdviceAbort() {
             var adviceMock = new Mock<IBeforeAdvice>();
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()))
                 .Callback(() => throw new InvalidOperationException());
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<int, ValueTuple>>()))
+                .Callback(() => { });
 
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
 
             var weaver = new AspectWeaver(config, this);
 
-            weaver.Advice(() => Assert.Fail("not aborted by before advice"));
+            weaver.Advice(15, n => { });
+            Assert.ThrowsException<InvalidOperationException>(() => {
+                weaver.Advice(() => { });
+            });
         }
-
-        delegate void BeforeStringCallback(Invocation invocation, ref string arg);
 
         [TestMethod]
         public void TestBeforeAdviceChangeParam() {
             var adviceMock = new Mock<IBeforeAdvice>();
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()))
                 .Callback(() => throw new InvalidOperationException());
-
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
-                .Callback(new BeforeStringCallback((Invocation _, ref string arg) => arg = "Changed"));
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<string, ValueTuple>>()))
+                .Callback((Invocation<string, ValueTuple> invoc) => invoc.Parameter = "Changed");
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<string, string>>()))
+                .Callback((Invocation<string, string> invoc) => invoc.Parameter = "Changed 2");
 
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
@@ -91,11 +95,19 @@ namespace SimplyAOP.Tests
             var weaver = new AspectWeaver(config, this);
 
             weaver.Advice("Not Changed", arg => Assert.AreEqual("Changed", arg));
+            Assert.AreEqual("Return", weaver.Advice("Not Changed", arg => {
+                Assert.AreEqual("Changed 2", arg);
+                return "Return";
+            }));
 
             config = new AspectConfiguration();
             weaver = new AspectWeaver(config, this);
 
             weaver.Advice("Not Changed", arg => Assert.AreEqual("Not Changed", arg));
+            Assert.AreEqual("Return", weaver.Advice("Not Changed", arg => {
+                Assert.AreEqual("Not Changed", arg);
+                return "Return";
+            }));
         }
 
         [TestMethod]
@@ -111,39 +123,42 @@ namespace SimplyAOP.Tests
             weaver.Advice(() => { value = "called"; });
             Assert.AreEqual("called", value);
 
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Never);
 
             weaver.Advice("called2", arg => { value = arg; });
             Assert.AreEqual("called2", value);
 
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(2));
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Never);
 
             weaver.Advice(() => { value = "called3"; });
             Assert.AreEqual("called3", value);
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(3));
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Never);
 
             weaver.Advice(() => { return value = "called3"; });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(3));
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, string>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Never);
 
             Assert.ThrowsException<Exception>(() => {
                 weaver.Advice(() => { throw new Exception(); });
             });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Exactly(3));
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, string>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<string, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
         }
 
         [TestMethod]
         public void TestInvocationMethod() {
             var adviceMock = new Mock<IBeforeAdvice>();
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
-                .Callback((Invocation invoc) => {
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()))
+                .Callback((Invocation<ValueTuple, string> invoc) => {
                     Assert.AreEqual("TestInvocationMethod", invoc.MethodName);
                     Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethod", invoc.Method.Name);
@@ -154,8 +169,8 @@ namespace SimplyAOP.Tests
 
                     Assert.AreEqual("AspectWeaverTests", invoc.TargetType.Name);
                 });
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<string>.IsAny))
-                .Callback(new BeforeStringCallback((Invocation invoc, ref string param) => {
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<string, string>>()))
+                .Callback((Invocation<string, string> invoc) => {
                     Assert.AreEqual("TestInvocationMethodCall", invoc.MethodName);
                     Assert.IsFalse(invoc.IsMethodLookupDone);
                     Assert.AreEqual("TestInvocationMethodCall", invoc.Method.Name);
@@ -165,8 +180,7 @@ namespace SimplyAOP.Tests
                     Assert.IsNull(invoc.GetAttribute<TestClassAttribute>());
 
                     Assert.AreEqual("AspectWeaverTests", invoc.TargetType.Name);
-                })
-            );
+                });
 
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
@@ -176,18 +190,18 @@ namespace SimplyAOP.Tests
             string value = "";
             weaver.Advice(() => value = "2");
             Assert.AreEqual("2", value);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, string>>()), Times.Never);
 
             value = weaver.Advice(() => "3");
             Assert.AreEqual("3", value);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, string>>()), Times.Never);
 
             value = weaver.Advice("4", (string a) => a, "TestInvocationMethodCall");
             Assert.AreEqual("4", value);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Exactly(2));
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, string>>()), Times.Exactly(2));
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<string, string>>()), Times.Once);
         }
 
         private string TestInvocationMethodCall(string param) {
@@ -205,12 +219,12 @@ namespace SimplyAOP.Tests
             Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(() => throw new InvalidOperationException());
             });
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
             Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(0, p => throw new InvalidOperationException());
             });
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(2));
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<int, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
             Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(() => {
@@ -221,7 +235,7 @@ namespace SimplyAOP.Tests
                     return 0;
                 });
             });
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(3));
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, int>>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
             Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(0, p => {
@@ -231,16 +245,16 @@ namespace SimplyAOP.Tests
                     return 0;
                 });
             });
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Exactly(4));
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<int, int>>(), ref It.Ref<Exception>.IsAny), Times.Once);
         }
 
-        delegate void AfterThrowingCallBack(Invocation invocation, ref Exception ex);
+        delegate void AfterThrowingCallBack(Invocation<ValueTuple, ValueTuple> invocation, ref Exception ex);
 
         [TestMethod]
         public void TestChangeThrownException() {
             var adviceMock = new Mock<IAfterAdvice>();
-            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
-                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex)
+            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny))
+                .Callback(new AfterThrowingCallBack((Invocation<ValueTuple, ValueTuple> _, ref Exception ex)
                     => ex = new NotSupportedException()));
 
             var config = new AspectConfiguration()
@@ -251,19 +265,19 @@ namespace SimplyAOP.Tests
             Assert.ThrowsException<NotSupportedException>(() => {
                 weaver.Advice(() => throw new InvalidOperationException());
             });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Never);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
             weaver.Advice(() => { });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
         }
 
         [TestMethod]
         public void TestNullThrownException() {
             var adviceMock = new Mock<IAfterAdvice>();
-            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny))
-                .Callback(new AfterThrowingCallBack((Invocation _, ref Exception ex)
+            adviceMock.Setup(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny))
+                .Callback(new AfterThrowingCallBack((Invocation<ValueTuple, ValueTuple> _, ref Exception ex)
                     => ex = null));
 
             var config = new AspectConfiguration()
@@ -274,19 +288,19 @@ namespace SimplyAOP.Tests
             Assert.ThrowsException<InvalidOperationException>(() => {
                 weaver.Advice(() => throw new NotSupportedException());
             });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Never);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Never);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
 
             weaver.Advice(() => { });
-            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation>(), ref It.Ref<Exception>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.AfterReturning(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.AfterThrowing(It.IsAny<Invocation<ValueTuple, ValueTuple>>(), ref It.Ref<Exception>.IsAny), Times.Once);
         }
 
         [TestMethod]
         public void TestSkipCall() {
             var adviceMock = new Mock<IBeforeAdvice>();
-            adviceMock.Setup(a => a.Before(It.IsAny<Invocation>()))
-                .Callback((Invocation invoc) => invoc.SkipMethod());
+            adviceMock.Setup(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()))
+                .Callback((Invocation<ValueTuple, ValueTuple> invoc) => invoc.SkipMethod());
 
             var config = new AspectConfiguration()
                 .AddAspect(adviceMock.Object);
@@ -294,14 +308,13 @@ namespace SimplyAOP.Tests
             var weaver = new AspectWeaver(config, this);
 
             weaver.Advice(() => throw new NotSupportedException());
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Never);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
 
             Assert.ThrowsException<NotSupportedException>(() => {
                 weaver.Advice(0, (int a) => throw new NotSupportedException());
             });
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>()), Times.Once);
-            adviceMock.Verify(a => a.Before(It.IsAny<Invocation>(), ref It.Ref<object>.IsAny), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<ValueTuple, ValueTuple>>()), Times.Once);
+            adviceMock.Verify(a => a.Before(It.IsAny<Invocation<int, ValueTuple>>()), Times.Once);
         }
     }
 }

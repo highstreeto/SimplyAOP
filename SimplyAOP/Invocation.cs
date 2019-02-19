@@ -7,17 +7,24 @@ namespace SimplyAOP
     /// <summary>
     /// Contains information of one method invocation which is targeted by the advices
     /// </summary>
-    public class Invocation
+    public class Invocation<TParam, TResult> : IInvokeWithParameter<TParam>, IInvokeWithResult<TResult>
     {
         private readonly Lazy<Type> targetType;
         private readonly Lazy<MethodInfo> method;
         private readonly Lazy<Type[]> parameterTypes;
         private readonly Dictionary<string, object> store = new Dictionary<string, object>();
 
-        public Invocation(Lazy<Type> targetType, string methodName, Lazy<Type[]> parameterTypes) {
+        private TParam parameter;
+        private TResult result;
+
+        public Invocation(Lazy<Type> targetType, string methodName)
+            : this(targetType, methodName, default(TParam)) { }
+
+        public Invocation(Lazy<Type> targetType, string methodName, TParam parameter) {
             MethodName = methodName;
             this.targetType = targetType;
-            this.parameterTypes = parameterTypes;
+            this.parameter = parameter;
+            this.parameterTypes = DetermineParameterTypes(parameter);
 
             method = new Lazy<MethodInfo>(() =>
                 this.targetType.Value.GetMethod(methodName,
@@ -40,6 +47,9 @@ namespace SimplyAOP
         public void SkipMethod()
             => IsSkippingMethod = true;
 
+        public ref TParam Parameter => ref parameter;
+        public ref TResult Result => ref result;
+
         public T GetAttribute<T>() where T : Attribute
             => Method.GetCustomAttribute<T>();
 
@@ -56,6 +66,16 @@ namespace SimplyAOP
         public object this[string key] {
             get { return store[key]; }
             set { store[key] = value; }
+        }
+
+        private static Lazy<Type[]> DetermineParameterTypes(TParam param) {
+            return new Lazy<Type[]>(() => {
+                var paramType = typeof(TParam);
+                if (paramType.FullName.StartsWith("System.ValueTuple")) {
+                    return paramType.GenericTypeArguments;
+                }
+                return new[] { param.GetType() };
+            });
         }
     }
 }

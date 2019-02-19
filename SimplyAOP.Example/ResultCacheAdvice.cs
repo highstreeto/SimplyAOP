@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SimplyAOP.Example
 {
     public class ResultCacheAdvice : IBeforeAdvice, IAfterAdvice
     {
-        private readonly IDictionary<object, int> cache =
-            new Dictionary<object, int>();
+        private readonly IDictionary<object, object> cache =
+            new Dictionary<object, object>();
 
-        public string Name => "Result Cache (only for (int) methods)";
+        public string Name => "Result Cache";
 
-        public void Before(Invocation invocation) { }
-        public void Before<TParam>(Invocation invocation, ref TParam parameter) {
-            if (parameter is int n) {
-                if (cache.ContainsKey(n)) {
-                    invocation.SkipMethod();
-                }
-                invocation["cacheKey"] = n;
+        public void Before<TParam, TResult>(Invocation<TParam, TResult> invocation) {
+            var key = invocation.Parameter;
+            if (cache.ContainsKey(key)) {
+                invocation.SkipMethod();
+                invocation.Result = (TResult)cache[key];
             }
         }
 
-        public void AfterReturning(Invocation invocation) { }
-        public void AfterReturning<TResult>(Invocation invocation, ref TResult result) {
-            if (invocation.TryGetEntry("cacheKey", out object key)) {
-                if (invocation.IsSkippingMethod)
-                    result = (TResult)(object)cache[key];
-                else
-                    cache[key] = (int)(object)result;
+        public void AfterReturning<TParam, TResult>(Invocation<TParam, TResult> invocation) {
+            var key = invocation.Parameter;
+            if (!invocation.IsSkippingMethod) {
+                cache[key] = invocation.Result;
             }
         }
-        public void AfterThrowing(Invocation invocation, ref Exception exception) { }
+
+        public void AfterThrowing<TParam, TResult>(Invocation<TParam, TResult> invocation, ref Exception exception) { }
     }
 }

@@ -6,16 +6,12 @@ namespace SimplyAOP.Example
     {
         public string Name => "Method Console Trace";
 
-        public void Before(Invocation invocation)
-            => Console.WriteLine($"Method {invocation.MethodName}() begin");
-        public void Before<TParam>(Invocation invocation, ref TParam parameter)
-            => Console.WriteLine($"Method {invocation.MethodName}({parameter}) begin");
+        public void Before<TParam, TResult>(Invocation<TParam, TResult> invocation)
+            => Console.WriteLine($"Method {invocation.MethodName}({invocation.Parameter}) begin");
 
-        public void AfterReturning(Invocation invocation)
-            => Console.WriteLine($"Method {invocation.MethodName}() end");
-        public void AfterReturning<TResult>(Invocation invocation, ref TResult result)
-            => Console.WriteLine($"Method {invocation.MethodName}() = {result} end");
-        public void AfterThrowing(Invocation invocation, ref Exception exception)
+        public void AfterReturning<TParam, TResult>(Invocation<TParam, TResult> invocation)
+            => Console.WriteLine($"Method {invocation.MethodName}() = {invocation.Result} end");
+        public void AfterThrowing<TParam, TResult>(Invocation<TParam, TResult> invocation, ref Exception exception)
             => Console.WriteLine($"Method {invocation.MethodName}() ! {ToOneLine(exception)} end");
 
         private string ToOneLine(Exception exception)
