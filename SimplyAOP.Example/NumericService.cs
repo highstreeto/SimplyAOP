@@ -5,7 +5,7 @@ namespace SimplyAOP.Example
 {
     public interface INumericService
     {
-        int Random();
+        int Random(Random random = null);
 
         int Sum(int a, int b);
 
@@ -20,8 +20,10 @@ namespace SimplyAOP.Example
             this.random = new Random();
         }
 
-        public int Random() {
-            return Advice(() => {
+        public int Random(Random random_ = null) {
+            return Advice(random_, random => {
+                if (random == null)
+                    random = this.random;
                 return random.Next();
             });
         }
