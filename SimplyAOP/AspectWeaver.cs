@@ -66,9 +66,8 @@ namespace SimplyAOP
                 foreach (var advice in config.BeforeAdvices)
                     advice.Before(invocation);
 
-                invocation.Result = invocation.IsSkippingMethod
-                    ? default(TResult)
-                    : method();
+                if (!invocation.IsSkippingMethod)
+                    invocation.Result = method();
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
