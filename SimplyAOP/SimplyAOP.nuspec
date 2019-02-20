@@ -17,9 +17,17 @@
       So SimplyAOP doesn't need to create the instance of the target class so it can be used were instance creation is handled externally (for example by WCF).
     </description>
     <releaseNotes>
+      ### Added
+      - New example project using IoC
+      -- Found under `SimplyAOP.IoCExample`
+      - Advices now can skip target method call
+      -- Example use see `ResultCacheAdvice` in Example
+
       ### Changed
-        - Add basic example and more details to README
-          - Used for NuGet description
+      - `Invocation` now includes parameter and result
+      -- Getting and setting parameter / result is now easier (no (TResult)(object) cast necessary)
+      -- Changed `IBeforeAdvice` and `IAfterAdvice` accordingly
+      - Setting exception to null in `AfterThrowing()` now leads to InvalidOperationException
     </releaseNotes>
     <copyright>Copyright (c) 2019 Martin Hochstrasser</copyright>
     <tags>AOP</tags>
