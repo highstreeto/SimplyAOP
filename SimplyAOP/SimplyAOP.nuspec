@@ -10,24 +10,24 @@
     <projectUrl>https://github.com/highstreeto/SimplyAOP</projectUrl>
     <summary>A simple AOP library written in C# for .NET Standard 2.0+</summary>
     <description>
-      SimplyAOP is a .NET library (.NET Standard 2.0+) which allows to use AOP concepts in a simple and straightforward way.
+SimplyAOP is a .NET library (.NET Standard 2.0+) which allows to use AOP concepts in a simple and straightforward way.
 
-      It doesn't use dynamic proxy to accomplish that. Instead the AOP target must invoke a specific method (Advice(...)) on the AspectWeaver to allow for aspects to kick in.
+It doesn't use dynamic proxy to accomplish that. Instead the AOP target must invoke a specific method (Advice(...)) on the AspectWeaver to allow for aspects to kick in.
 
-      So SimplyAOP doesn't need to create the instance of the target class so it can be used were instance creation is handled externally (for example by WCF).
+So SimplyAOP doesn't need to create the instance of the target class so it can be used were instance creation is handled externally (for example by WCF).
     </description>
     <releaseNotes>
-      ### Added
-      - New example project using IoC
-      -- Found under `SimplyAOP.IoCExample`
-      - Advices now can skip target method call
-      -- Example use see `ResultCacheAdvice` in Example
+### Added
+- New example project using IoC
+-- Found under `SimplyAOP.IoCExample`
+- Advices now can skip target method call
+-- Example use see `ResultCacheAdvice` in Example
 
-      ### Changed
-      - `Invocation` now includes parameter and result
-      -- Getting and setting parameter / result is now easier (no (TResult)(object) cast necessary)
-      -- Changed `IBeforeAdvice` and `IAfterAdvice` accordingly
-      - Setting exception to null in `AfterThrowing()` now leads to InvalidOperationException
+### Changed
+- `Invocation` now includes parameter and result
+-- Getting and setting parameter / result is now easier (no (TResult)(object) cast necessary)
+-- Changed `IBeforeAdvice` and `IAfterAdvice` accordingly
+- Setting exception to null in `AfterThrowing()` now leads to InvalidOperationException
     </releaseNotes>
     <copyright>Copyright (c) 2019 Martin Hochstrasser</copyright>
     <tags>AOP</tags>
