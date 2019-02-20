@@ -41,4 +41,4 @@ class MethodConsoleTraceAdvice : IBeforeAdvice {
 }
 ```
 
-For a more detailed example see [SimplyAOP.Example](https://github.com/highstreeto/SimplyAOP/tree/master/SimplyAOP.Example)
+For a more detailed example see [SimplyAOP.Example](https://github.com/highstreeto/SimplyAOP/tree/master/SimplyAOP.Example) or [SimplyAOP.IoCExample](https://github.com/highstreeto/SimplyAOP/tree/master/SimplyAOP.IoCExample)
