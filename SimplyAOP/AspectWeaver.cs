@@ -21,6 +21,7 @@ namespace SimplyAOP
         }
 
         public void Advice(Action method, [CallerMemberName] string callerMemberName = null) {
+            // Use ValueTuple (without type arguments) as a type for void (is similar to F# Unit)
             var invocation = new Invocation<ValueTuple, ValueTuple>(targetType, callerMemberName);
             try {
                 foreach (var advice in config.BeforeAdvices)
