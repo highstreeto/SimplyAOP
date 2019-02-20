@@ -1,4 +1,4 @@
-#tool "nuget:?package=ReportGenerator&version=4.0.9"
+#tool "nuget:?package=ReportGenerator&version=4.0.12"
 
 var target = Argument("target", "Build");
 var version = Argument("pversion", "0.2.1");
@@ -23,12 +23,14 @@ Task("Test-Only").Does(() =>
             .Append("/p:CollectCoverage=true")
             .Append("/p:CoverletOutputFormat=opencover")
     });
-    if (IsRunningOnWindows()) {
-        ReportGenerator(
-            "SimplyAOP.Tests/coverage.opencover.xml",
-            "TestCoverage"
-        );
-    }
+
+    DotNetCoreExecute(
+        "./tools/ReportGenerator.4.0.12/tools/netcoreapp2.0/ReportGenerator.dll",
+        new ProcessArgumentBuilder()
+            .Append("-reports:SimplyAOP.Tests/coverage.opencover.xml")
+            .Append("-targetdir:TestCoverage")
+            .Append("-reporttypes:Html;Badges")
+    );
 });
 
 Task("Package")
