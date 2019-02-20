@@ -74,7 +74,7 @@ namespace SimplyAOP
                 if (paramType.FullName.StartsWith("System.ValueTuple")) {
                     return paramType.GenericTypeArguments;
                 }
-                return new[] { param.GetType() };
+                return new[] { paramType };
             });
         }
     }
