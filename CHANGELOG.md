@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Advices now can skip target method call
+  - Example use see `ResultCacheAdvice` in Example
+
 ### Changed
 
-- Changing exception to null in `AfterThrowing()` now leads to InvalidOperationException
+- `Invocation` now includes parameter and result
+  - Getting and setting parameter / result is now easier (no (TResult)(object) cast necessary)
+  - Changed `IBeforeAdvice` and `IAfterAdvice` accordingly
+- Setting exception to null in `AfterThrowing()` now leads to InvalidOperationException
 
 ## [0.2.1] - 2019-02-10
 
