@@ -3,7 +3,7 @@
     public static class InvocationExtensions
     {
         public static bool TryCastParameter<TParam, TResult, TOParam>(this Invocation<TParam, TResult> invocation, out IInvokeWithParameter<TOParam> parameterInvoc) {
-            if (typeof(TParam) == typeof(TOParam)) {
+            if (typeof(TParam).IsAssignableFrom(typeof(TOParam))) {
                 parameterInvoc = (IInvokeWithParameter<TOParam>)invocation;
                 return true;
             } else {
@@ -13,7 +13,7 @@
         }
 
         public static bool TryCastResult<TParam, TResult, TOResult>(this Invocation<TParam, TResult> invocation, out IInvokeWithResult<TOResult> resultInvoc) {
-            if (typeof(TResult) == typeof(TOResult)) {
+            if (typeof(TResult).IsAssignableFrom(typeof(TOResult))) {
                 resultInvoc = (IInvokeWithResult<TOResult>)invocation;
                 return true;
             } else {
