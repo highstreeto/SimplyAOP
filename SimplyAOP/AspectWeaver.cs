@@ -61,6 +61,9 @@ namespace SimplyAOP
             }
         }
 
+        public void Advice<TParam>(Action<TParam> method, TParam param, [CallerMemberName] string callerMemberName = null)
+            => Advice(param, method, callerMemberName);
+
         public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null) {
             var invocation = new Invocation<ValueTuple, TResult>(targetType, callerMemberName);
             try {
@@ -105,6 +108,9 @@ namespace SimplyAOP
             }
         }
 
+        public TResult Advice<TParam, TResult>(Func<TParam, TResult> method, TParam param, [CallerMemberName] string callerMemberName = null)
+            => Advice(param, method, callerMemberName);
+
         public class Class
         {
             private readonly AspectWeaver weaver;
@@ -117,9 +123,13 @@ namespace SimplyAOP
                 => weaver.Advice(method, callerMemberName);
             protected void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null)
                 => weaver.Advice(param, method, callerMemberName);
+            protected void Advice<TParam>(Action<TParam> method, TParam param, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(param, method, callerMemberName);
             protected TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null)
                 => weaver.Advice(method, callerMemberName);
             protected TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null)
+                => weaver.Advice(param, method, callerMemberName);
+            protected TResult Advice<TParam, TResult>(Func<TParam, TResult> method, TParam param, [CallerMemberName] string callerMemberName = null)
                 => weaver.Advice(param, method, callerMemberName);
         }
     }
