@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added new overloads for calling Advice with parameter at the end (@jmairboeck) #3
+  - Example: `Advice(ServiceImpl, (request, user))`
 - New example project using IoC
   - Found under `SimplyAOP.IoCExample`
 - Advices now can skip target method call
