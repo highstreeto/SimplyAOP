@@ -29,7 +29,8 @@ class Target : AspectWeaver.Class {
 
     bool Foo(int a, int b) {
         return Advice((a, b), req => {
-            return a == b;
+            // using the parameter passed to the lambda to allow the arguments be changed by the Advice
+            return req.a == req.b;
         });
     }
 }
