@@ -16,6 +16,8 @@ So SimplyAOP doesn't need to create the instance of the target class so it can b
   - No runtime or compile time instrumentation
 - Minimize reflection usage
 
+## [Documentation](https://www.hochstrasser.dev/SimplyAOP/)
+
 ## Basic Example
 
 ```csharp
