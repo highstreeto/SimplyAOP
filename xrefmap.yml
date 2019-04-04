@@ -1,0 +1,625 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: SimplyAOP
+  name: SimplyAOP
+  href: api/SimplyAOP.html
+  commentId: N:SimplyAOP
+  fullName: SimplyAOP
+  nameWithType: SimplyAOP
+- uid: SimplyAOP.AspectConfiguration
+  name: AspectConfiguration
+  href: api/SimplyAOP.AspectConfiguration.html
+  commentId: T:SimplyAOP.AspectConfiguration
+  fullName: SimplyAOP.AspectConfiguration
+  nameWithType: AspectConfiguration
+- uid: SimplyAOP.AspectConfiguration.#ctor
+  name: AspectConfiguration()
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration__ctor
+  commentId: M:SimplyAOP.AspectConfiguration.#ctor
+  fullName: SimplyAOP.AspectConfiguration.AspectConfiguration()
+  nameWithType: AspectConfiguration.AspectConfiguration()
+- uid: SimplyAOP.AspectConfiguration.#ctor*
+  name: AspectConfiguration
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration__ctor_
+  commentId: Overload:SimplyAOP.AspectConfiguration.#ctor
+  isSpec: "True"
+  fullName: SimplyAOP.AspectConfiguration.AspectConfiguration
+  nameWithType: AspectConfiguration.AspectConfiguration
+- uid: SimplyAOP.AspectConfiguration.AddAspect(SimplyAOP.IAspect)
+  name: AddAspect(IAspect)
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_AddAspect_SimplyAOP_IAspect_
+  commentId: M:SimplyAOP.AspectConfiguration.AddAspect(SimplyAOP.IAspect)
+  fullName: SimplyAOP.AspectConfiguration.AddAspect(SimplyAOP.IAspect)
+  nameWithType: AspectConfiguration.AddAspect(IAspect)
+- uid: SimplyAOP.AspectConfiguration.AddAspect*
+  name: AddAspect
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_AddAspect_
+  commentId: Overload:SimplyAOP.AspectConfiguration.AddAspect
+  isSpec: "True"
+  fullName: SimplyAOP.AspectConfiguration.AddAspect
+  nameWithType: AspectConfiguration.AddAspect
+- uid: SimplyAOP.AspectConfiguration.AddAspect``1
+  name: AddAspect<TAspect>()
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_AddAspect__1
+  commentId: M:SimplyAOP.AspectConfiguration.AddAspect``1
+  name.vb: AddAspect(Of TAspect)()
+  fullName: SimplyAOP.AspectConfiguration.AddAspect<TAspect>()
+  fullName.vb: SimplyAOP.AspectConfiguration.AddAspect(Of TAspect)()
+  nameWithType: AspectConfiguration.AddAspect<TAspect>()
+  nameWithType.vb: AspectConfiguration.AddAspect(Of TAspect)()
+- uid: SimplyAOP.AspectConfiguration.AfterAdvices
+  name: AfterAdvices
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_AfterAdvices
+  commentId: P:SimplyAOP.AspectConfiguration.AfterAdvices
+  fullName: SimplyAOP.AspectConfiguration.AfterAdvices
+  nameWithType: AspectConfiguration.AfterAdvices
+- uid: SimplyAOP.AspectConfiguration.AfterAdvices*
+  name: AfterAdvices
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_AfterAdvices_
+  commentId: Overload:SimplyAOP.AspectConfiguration.AfterAdvices
+  isSpec: "True"
+  fullName: SimplyAOP.AspectConfiguration.AfterAdvices
+  nameWithType: AspectConfiguration.AfterAdvices
+- uid: SimplyAOP.AspectConfiguration.BeforeAdvices
+  name: BeforeAdvices
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_BeforeAdvices
+  commentId: P:SimplyAOP.AspectConfiguration.BeforeAdvices
+  fullName: SimplyAOP.AspectConfiguration.BeforeAdvices
+  nameWithType: AspectConfiguration.BeforeAdvices
+- uid: SimplyAOP.AspectConfiguration.BeforeAdvices*
+  name: BeforeAdvices
+  href: api/SimplyAOP.AspectConfiguration.html#SimplyAOP_AspectConfiguration_BeforeAdvices_
+  commentId: Overload:SimplyAOP.AspectConfiguration.BeforeAdvices
+  isSpec: "True"
+  fullName: SimplyAOP.AspectConfiguration.BeforeAdvices
+  nameWithType: AspectConfiguration.BeforeAdvices
+- uid: SimplyAOP.AspectWeaver
+  name: AspectWeaver
+  href: api/SimplyAOP.AspectWeaver.html
+  commentId: T:SimplyAOP.AspectWeaver
+  fullName: SimplyAOP.AspectWeaver
+  nameWithType: AspectWeaver
+- uid: SimplyAOP.AspectWeaver.#ctor(SimplyAOP.AspectConfiguration,System.Object)
+  name: AspectWeaver(AspectConfiguration, Object)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver__ctor_SimplyAOP_AspectConfiguration_System_Object_
+  commentId: M:SimplyAOP.AspectWeaver.#ctor(SimplyAOP.AspectConfiguration,System.Object)
+  fullName: SimplyAOP.AspectWeaver.AspectWeaver(SimplyAOP.AspectConfiguration, System.Object)
+  nameWithType: AspectWeaver.AspectWeaver(AspectConfiguration, Object)
+- uid: SimplyAOP.AspectWeaver.#ctor*
+  name: AspectWeaver
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver__ctor_
+  commentId: Overload:SimplyAOP.AspectWeaver.#ctor
+  isSpec: "True"
+  fullName: SimplyAOP.AspectWeaver.AspectWeaver
+  nameWithType: AspectWeaver.AspectWeaver
+- uid: SimplyAOP.AspectWeaver.Advice(System.Action,System.String)
+  name: Advice(Action, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice_System_Action_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice(System.Action,System.String)
+  fullName: SimplyAOP.AspectWeaver.Advice(System.Action, System.String)
+  nameWithType: AspectWeaver.Advice(Action, String)
+- uid: SimplyAOP.AspectWeaver.Advice*
+  name: Advice
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice_
+  commentId: Overload:SimplyAOP.AspectWeaver.Advice
+  isSpec: "True"
+  fullName: SimplyAOP.AspectWeaver.Advice
+  nameWithType: AspectWeaver.Advice
+- uid: SimplyAOP.AspectWeaver.Advice``1(``0,System.Action{``0},System.String)
+  name: Advice<TParam>(TParam, Action<TParam>, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice__1___0_System_Action___0__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice``1(``0,System.Action{``0},System.String)
+  name.vb: Advice(Of TParam)(TParam, Action(Of TParam), String)
+  fullName: SimplyAOP.AspectWeaver.Advice<TParam>(TParam, System.Action<TParam>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Advice(Of TParam)(TParam, System.Action(Of TParam), System.String)
+  nameWithType: AspectWeaver.Advice<TParam>(TParam, Action<TParam>, String)
+  nameWithType.vb: AspectWeaver.Advice(Of TParam)(TParam, Action(Of TParam), String)
+- uid: SimplyAOP.AspectWeaver.Advice``1(System.Action{``0},``0,System.String)
+  name: Advice<TParam>(Action<TParam>, TParam, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice__1_System_Action___0____0_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice``1(System.Action{``0},``0,System.String)
+  name.vb: Advice(Of TParam)(Action(Of TParam), TParam, String)
+  fullName: SimplyAOP.AspectWeaver.Advice<TParam>(System.Action<TParam>, TParam, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Advice(Of TParam)(System.Action(Of TParam), TParam, System.String)
+  nameWithType: AspectWeaver.Advice<TParam>(Action<TParam>, TParam, String)
+  nameWithType.vb: AspectWeaver.Advice(Of TParam)(Action(Of TParam), TParam, String)
+- uid: SimplyAOP.AspectWeaver.Advice``1(System.Func{``0},System.String)
+  name: Advice<TResult>(Func<TResult>, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice__1_System_Func___0__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice``1(System.Func{``0},System.String)
+  name.vb: Advice(Of TResult)(Func(Of TResult), String)
+  fullName: SimplyAOP.AspectWeaver.Advice<TResult>(System.Func<TResult>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Advice(Of TResult)(System.Func(Of TResult), System.String)
+  nameWithType: AspectWeaver.Advice<TResult>(Func<TResult>, String)
+  nameWithType.vb: AspectWeaver.Advice(Of TResult)(Func(Of TResult), String)
+- uid: SimplyAOP.AspectWeaver.Advice``2(``0,System.Func{``0,``1},System.String)
+  name: Advice<TParam, TResult>(TParam, Func<TParam, TResult>, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice__2___0_System_Func___0___1__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice``2(``0,System.Func{``0,``1},System.String)
+  name.vb: Advice(Of TParam, TResult)(TParam, Func(Of TParam, TResult), String)
+  fullName: SimplyAOP.AspectWeaver.Advice<TParam, TResult>(TParam, System.Func<TParam, TResult>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Advice(Of TParam, TResult)(TParam, System.Func(Of TParam, TResult), System.String)
+  nameWithType: AspectWeaver.Advice<TParam, TResult>(TParam, Func<TParam, TResult>, String)
+  nameWithType.vb: AspectWeaver.Advice(Of TParam, TResult)(TParam, Func(Of TParam, TResult), String)
+- uid: SimplyAOP.AspectWeaver.Advice``2(System.Func{``0,``1},``0,System.String)
+  name: Advice<TParam, TResult>(Func<TParam, TResult>, TParam, String)
+  href: api/SimplyAOP.AspectWeaver.html#SimplyAOP_AspectWeaver_Advice__2_System_Func___0___1____0_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Advice``2(System.Func{``0,``1},``0,System.String)
+  name.vb: Advice(Of TParam, TResult)(Func(Of TParam, TResult), TParam, String)
+  fullName: SimplyAOP.AspectWeaver.Advice<TParam, TResult>(System.Func<TParam, TResult>, TParam, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Advice(Of TParam, TResult)(System.Func(Of TParam, TResult), TParam, System.String)
+  nameWithType: AspectWeaver.Advice<TParam, TResult>(Func<TParam, TResult>, TParam, String)
+  nameWithType.vb: AspectWeaver.Advice(Of TParam, TResult)(Func(Of TParam, TResult), TParam, String)
+- uid: SimplyAOP.AspectWeaver.Class
+  name: AspectWeaver.Class
+  href: api/SimplyAOP.AspectWeaver.Class.html
+  commentId: T:SimplyAOP.AspectWeaver.Class
+  fullName: SimplyAOP.AspectWeaver.Class
+  nameWithType: AspectWeaver.Class
+- uid: SimplyAOP.AspectWeaver.Class.#ctor(SimplyAOP.AspectConfiguration)
+  name: Class(AspectConfiguration)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class__ctor_SimplyAOP_AspectConfiguration_
+  commentId: M:SimplyAOP.AspectWeaver.Class.#ctor(SimplyAOP.AspectConfiguration)
+  fullName: SimplyAOP.AspectWeaver.Class.Class(SimplyAOP.AspectConfiguration)
+  nameWithType: AspectWeaver.Class.Class(AspectConfiguration)
+- uid: SimplyAOP.AspectWeaver.Class.#ctor*
+  name: Class
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class__ctor_
+  commentId: Overload:SimplyAOP.AspectWeaver.Class.#ctor
+  isSpec: "True"
+  fullName: SimplyAOP.AspectWeaver.Class.Class
+  nameWithType: AspectWeaver.Class.Class
+- uid: SimplyAOP.AspectWeaver.Class.Advice(System.Action,System.String)
+  name: Advice(Action, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice_System_Action_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice(System.Action,System.String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice(System.Action, System.String)
+  nameWithType: AspectWeaver.Class.Advice(Action, String)
+- uid: SimplyAOP.AspectWeaver.Class.Advice*
+  name: Advice
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice_
+  commentId: Overload:SimplyAOP.AspectWeaver.Class.Advice
+  isSpec: "True"
+  fullName: SimplyAOP.AspectWeaver.Class.Advice
+  nameWithType: AspectWeaver.Class.Advice
+- uid: SimplyAOP.AspectWeaver.Class.Advice``1(``0,System.Action{``0},System.String)
+  name: Advice<TParam>(TParam, Action<TParam>, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice__1___0_System_Action___0__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice``1(``0,System.Action{``0},System.String)
+  name.vb: Advice(Of TParam)(TParam, Action(Of TParam), String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice<TParam>(TParam, System.Action<TParam>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Class.Advice(Of TParam)(TParam, System.Action(Of TParam), System.String)
+  nameWithType: AspectWeaver.Class.Advice<TParam>(TParam, Action<TParam>, String)
+  nameWithType.vb: AspectWeaver.Class.Advice(Of TParam)(TParam, Action(Of TParam), String)
+- uid: SimplyAOP.AspectWeaver.Class.Advice``1(System.Action{``0},``0,System.String)
+  name: Advice<TParam>(Action<TParam>, TParam, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice__1_System_Action___0____0_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice``1(System.Action{``0},``0,System.String)
+  name.vb: Advice(Of TParam)(Action(Of TParam), TParam, String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice<TParam>(System.Action<TParam>, TParam, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Class.Advice(Of TParam)(System.Action(Of TParam), TParam, System.String)
+  nameWithType: AspectWeaver.Class.Advice<TParam>(Action<TParam>, TParam, String)
+  nameWithType.vb: AspectWeaver.Class.Advice(Of TParam)(Action(Of TParam), TParam, String)
+- uid: SimplyAOP.AspectWeaver.Class.Advice``1(System.Func{``0},System.String)
+  name: Advice<TResult>(Func<TResult>, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice__1_System_Func___0__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice``1(System.Func{``0},System.String)
+  name.vb: Advice(Of TResult)(Func(Of TResult), String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice<TResult>(System.Func<TResult>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Class.Advice(Of TResult)(System.Func(Of TResult), System.String)
+  nameWithType: AspectWeaver.Class.Advice<TResult>(Func<TResult>, String)
+  nameWithType.vb: AspectWeaver.Class.Advice(Of TResult)(Func(Of TResult), String)
+- uid: SimplyAOP.AspectWeaver.Class.Advice``2(``0,System.Func{``0,``1},System.String)
+  name: Advice<TParam, TResult>(TParam, Func<TParam, TResult>, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice__2___0_System_Func___0___1__System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice``2(``0,System.Func{``0,``1},System.String)
+  name.vb: Advice(Of TParam, TResult)(TParam, Func(Of TParam, TResult), String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice<TParam, TResult>(TParam, System.Func<TParam, TResult>, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Class.Advice(Of TParam, TResult)(TParam, System.Func(Of TParam, TResult), System.String)
+  nameWithType: AspectWeaver.Class.Advice<TParam, TResult>(TParam, Func<TParam, TResult>, String)
+  nameWithType.vb: AspectWeaver.Class.Advice(Of TParam, TResult)(TParam, Func(Of TParam, TResult), String)
+- uid: SimplyAOP.AspectWeaver.Class.Advice``2(System.Func{``0,``1},``0,System.String)
+  name: Advice<TParam, TResult>(Func<TParam, TResult>, TParam, String)
+  href: api/SimplyAOP.AspectWeaver.Class.html#SimplyAOP_AspectWeaver_Class_Advice__2_System_Func___0___1____0_System_String_
+  commentId: M:SimplyAOP.AspectWeaver.Class.Advice``2(System.Func{``0,``1},``0,System.String)
+  name.vb: Advice(Of TParam, TResult)(Func(Of TParam, TResult), TParam, String)
+  fullName: SimplyAOP.AspectWeaver.Class.Advice<TParam, TResult>(System.Func<TParam, TResult>, TParam, System.String)
+  fullName.vb: SimplyAOP.AspectWeaver.Class.Advice(Of TParam, TResult)(System.Func(Of TParam, TResult), TParam, System.String)
+  nameWithType: AspectWeaver.Class.Advice<TParam, TResult>(Func<TParam, TResult>, TParam, String)
+  nameWithType.vb: AspectWeaver.Class.Advice(Of TParam, TResult)(Func(Of TParam, TResult), TParam, String)
+- uid: SimplyAOP.IAfterAdvice
+  name: IAfterAdvice
+  href: api/SimplyAOP.IAfterAdvice.html
+  commentId: T:SimplyAOP.IAfterAdvice
+  fullName: SimplyAOP.IAfterAdvice
+  nameWithType: IAfterAdvice
+- uid: SimplyAOP.IAfterAdvice.AfterReturning*
+  name: AfterReturning
+  href: api/SimplyAOP.IAfterAdvice.html#SimplyAOP_IAfterAdvice_AfterReturning_
+  commentId: Overload:SimplyAOP.IAfterAdvice.AfterReturning
+  isSpec: "True"
+  fullName: SimplyAOP.IAfterAdvice.AfterReturning
+  nameWithType: IAfterAdvice.AfterReturning
+- uid: SimplyAOP.IAfterAdvice.AfterReturning``2(SimplyAOP.Invocation{``0,``1})
+  name: AfterReturning<TParam, TResult>(Invocation<TParam, TResult>)
+  href: api/SimplyAOP.IAfterAdvice.html#SimplyAOP_IAfterAdvice_AfterReturning__2_SimplyAOP_Invocation___0___1__
+  commentId: M:SimplyAOP.IAfterAdvice.AfterReturning``2(SimplyAOP.Invocation{``0,``1})
+  name.vb: AfterReturning(Of TParam, TResult)(Invocation(Of TParam, TResult))
+  fullName: SimplyAOP.IAfterAdvice.AfterReturning<TParam, TResult>(SimplyAOP.Invocation<TParam, TResult>)
+  fullName.vb: SimplyAOP.IAfterAdvice.AfterReturning(Of TParam, TResult)(SimplyAOP.Invocation(Of TParam, TResult))
+  nameWithType: IAfterAdvice.AfterReturning<TParam, TResult>(Invocation<TParam, TResult>)
+  nameWithType.vb: IAfterAdvice.AfterReturning(Of TParam, TResult)(Invocation(Of TParam, TResult))
+- uid: SimplyAOP.IAfterAdvice.AfterThrowing*
+  name: AfterThrowing
+  href: api/SimplyAOP.IAfterAdvice.html#SimplyAOP_IAfterAdvice_AfterThrowing_
+  commentId: Overload:SimplyAOP.IAfterAdvice.AfterThrowing
+  isSpec: "True"
+  fullName: SimplyAOP.IAfterAdvice.AfterThrowing
+  nameWithType: IAfterAdvice.AfterThrowing
+- uid: SimplyAOP.IAfterAdvice.AfterThrowing``2(SimplyAOP.Invocation{``0,``1},System.Exception@)
+  name: AfterThrowing<TParam, TResult>(Invocation<TParam, TResult>, ref Exception)
+  href: api/SimplyAOP.IAfterAdvice.html#SimplyAOP_IAfterAdvice_AfterThrowing__2_SimplyAOP_Invocation___0___1__System_Exception__
+  commentId: M:SimplyAOP.IAfterAdvice.AfterThrowing``2(SimplyAOP.Invocation{``0,``1},System.Exception@)
+  name.vb: AfterThrowing(Of TParam, TResult)(Invocation(Of TParam, TResult), ByRef Exception)
+  fullName: SimplyAOP.IAfterAdvice.AfterThrowing<TParam, TResult>(SimplyAOP.Invocation<TParam, TResult>, ref System.Exception)
+  fullName.vb: SimplyAOP.IAfterAdvice.AfterThrowing(Of TParam, TResult)(SimplyAOP.Invocation(Of TParam, TResult), ByRef System.Exception)
+  nameWithType: IAfterAdvice.AfterThrowing<TParam, TResult>(Invocation<TParam, TResult>, ref Exception)
+  nameWithType.vb: IAfterAdvice.AfterThrowing(Of TParam, TResult)(Invocation(Of TParam, TResult), ByRef Exception)
+- uid: SimplyAOP.IAspect
+  name: IAspect
+  href: api/SimplyAOP.IAspect.html
+  commentId: T:SimplyAOP.IAspect
+  fullName: SimplyAOP.IAspect
+  nameWithType: IAspect
+- uid: SimplyAOP.IAspect.Name
+  name: Name
+  href: api/SimplyAOP.IAspect.html#SimplyAOP_IAspect_Name
+  commentId: P:SimplyAOP.IAspect.Name
+  fullName: SimplyAOP.IAspect.Name
+  nameWithType: IAspect.Name
+- uid: SimplyAOP.IAspect.Name*
+  name: Name
+  href: api/SimplyAOP.IAspect.html#SimplyAOP_IAspect_Name_
+  commentId: Overload:SimplyAOP.IAspect.Name
+  isSpec: "True"
+  fullName: SimplyAOP.IAspect.Name
+  nameWithType: IAspect.Name
+- uid: SimplyAOP.IBeforeAdvice
+  name: IBeforeAdvice
+  href: api/SimplyAOP.IBeforeAdvice.html
+  commentId: T:SimplyAOP.IBeforeAdvice
+  fullName: SimplyAOP.IBeforeAdvice
+  nameWithType: IBeforeAdvice
+- uid: SimplyAOP.IBeforeAdvice.Before*
+  name: Before
+  href: api/SimplyAOP.IBeforeAdvice.html#SimplyAOP_IBeforeAdvice_Before_
+  commentId: Overload:SimplyAOP.IBeforeAdvice.Before
+  isSpec: "True"
+  fullName: SimplyAOP.IBeforeAdvice.Before
+  nameWithType: IBeforeAdvice.Before
+- uid: SimplyAOP.IBeforeAdvice.Before``2(SimplyAOP.Invocation{``0,``1})
+  name: Before<TParam, TResult>(Invocation<TParam, TResult>)
+  href: api/SimplyAOP.IBeforeAdvice.html#SimplyAOP_IBeforeAdvice_Before__2_SimplyAOP_Invocation___0___1__
+  commentId: M:SimplyAOP.IBeforeAdvice.Before``2(SimplyAOP.Invocation{``0,``1})
+  name.vb: Before(Of TParam, TResult)(Invocation(Of TParam, TResult))
+  fullName: SimplyAOP.IBeforeAdvice.Before<TParam, TResult>(SimplyAOP.Invocation<TParam, TResult>)
+  fullName.vb: SimplyAOP.IBeforeAdvice.Before(Of TParam, TResult)(SimplyAOP.Invocation(Of TParam, TResult))
+  nameWithType: IBeforeAdvice.Before<TParam, TResult>(Invocation<TParam, TResult>)
+  nameWithType.vb: IBeforeAdvice.Before(Of TParam, TResult)(Invocation(Of TParam, TResult))
+- uid: SimplyAOP.IInvokeWithParameter`1
+  name: IInvokeWithParameter<TParam>
+  href: api/SimplyAOP.IInvokeWithParameter-1.html
+  commentId: T:SimplyAOP.IInvokeWithParameter`1
+  name.vb: IInvokeWithParameter(Of TParam)
+  fullName: SimplyAOP.IInvokeWithParameter<TParam>
+  fullName.vb: SimplyAOP.IInvokeWithParameter(Of TParam)
+  nameWithType: IInvokeWithParameter<TParam>
+  nameWithType.vb: IInvokeWithParameter(Of TParam)
+- uid: SimplyAOP.IInvokeWithParameter`1.Parameter
+  name: Parameter
+  href: api/SimplyAOP.IInvokeWithParameter-1.html#SimplyAOP_IInvokeWithParameter_1_Parameter
+  commentId: P:SimplyAOP.IInvokeWithParameter`1.Parameter
+  fullName: SimplyAOP.IInvokeWithParameter<TParam>.Parameter
+  fullName.vb: SimplyAOP.IInvokeWithParameter(Of TParam).Parameter
+  nameWithType: IInvokeWithParameter<TParam>.Parameter
+  nameWithType.vb: IInvokeWithParameter(Of TParam).Parameter
+- uid: SimplyAOP.IInvokeWithParameter`1.Parameter*
+  name: Parameter
+  href: api/SimplyAOP.IInvokeWithParameter-1.html#SimplyAOP_IInvokeWithParameter_1_Parameter_
+  commentId: Overload:SimplyAOP.IInvokeWithParameter`1.Parameter
+  isSpec: "True"
+  fullName: SimplyAOP.IInvokeWithParameter<TParam>.Parameter
+  fullName.vb: SimplyAOP.IInvokeWithParameter(Of TParam).Parameter
+  nameWithType: IInvokeWithParameter<TParam>.Parameter
+  nameWithType.vb: IInvokeWithParameter(Of TParam).Parameter
+- uid: SimplyAOP.IInvokeWithResult`1
+  name: IInvokeWithResult<TResult>
+  href: api/SimplyAOP.IInvokeWithResult-1.html
+  commentId: T:SimplyAOP.IInvokeWithResult`1
+  name.vb: IInvokeWithResult(Of TResult)
+  fullName: SimplyAOP.IInvokeWithResult<TResult>
+  fullName.vb: SimplyAOP.IInvokeWithResult(Of TResult)
+  nameWithType: IInvokeWithResult<TResult>
+  nameWithType.vb: IInvokeWithResult(Of TResult)
+- uid: SimplyAOP.IInvokeWithResult`1.Result
+  name: Result
+  href: api/SimplyAOP.IInvokeWithResult-1.html#SimplyAOP_IInvokeWithResult_1_Result
+  commentId: P:SimplyAOP.IInvokeWithResult`1.Result
+  fullName: SimplyAOP.IInvokeWithResult<TResult>.Result
+  fullName.vb: SimplyAOP.IInvokeWithResult(Of TResult).Result
+  nameWithType: IInvokeWithResult<TResult>.Result
+  nameWithType.vb: IInvokeWithResult(Of TResult).Result
+- uid: SimplyAOP.IInvokeWithResult`1.Result*
+  name: Result
+  href: api/SimplyAOP.IInvokeWithResult-1.html#SimplyAOP_IInvokeWithResult_1_Result_
+  commentId: Overload:SimplyAOP.IInvokeWithResult`1.Result
+  isSpec: "True"
+  fullName: SimplyAOP.IInvokeWithResult<TResult>.Result
+  fullName.vb: SimplyAOP.IInvokeWithResult(Of TResult).Result
+  nameWithType: IInvokeWithResult<TResult>.Result
+  nameWithType.vb: IInvokeWithResult(Of TResult).Result
+- uid: SimplyAOP.Invocation`2
+  name: Invocation<TParam, TResult>
+  href: api/SimplyAOP.Invocation-2.html
+  commentId: T:SimplyAOP.Invocation`2
+  name.vb: Invocation(Of TParam, TResult)
+  fullName: SimplyAOP.Invocation<TParam, TResult>
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult)
+  nameWithType: Invocation<TParam, TResult>
+  nameWithType.vb: Invocation(Of TParam, TResult)
+- uid: SimplyAOP.Invocation`2.#ctor(System.Lazy{System.Type},System.String)
+  name: Invocation(Lazy<Type>, String)
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2__ctor_System_Lazy_System_Type__System_String_
+  commentId: M:SimplyAOP.Invocation`2.#ctor(System.Lazy{System.Type},System.String)
+  name.vb: Invocation(Lazy(Of Type), String)
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Invocation(System.Lazy<System.Type>, System.String)
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Invocation(System.Lazy(Of System.Type), System.String)
+  nameWithType: Invocation<TParam, TResult>.Invocation(Lazy<Type>, String)
+  nameWithType.vb: Invocation(Of TParam, TResult).Invocation(Lazy(Of Type), String)
+- uid: SimplyAOP.Invocation`2.#ctor(System.Lazy{System.Type},System.String,`0)
+  name: Invocation(Lazy<Type>, String, TParam)
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2__ctor_System_Lazy_System_Type__System_String__0_
+  commentId: M:SimplyAOP.Invocation`2.#ctor(System.Lazy{System.Type},System.String,`0)
+  name.vb: Invocation(Lazy(Of Type), String, TParam)
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Invocation(System.Lazy<System.Type>, System.String, TParam)
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Invocation(System.Lazy(Of System.Type), System.String, TParam)
+  nameWithType: Invocation<TParam, TResult>.Invocation(Lazy<Type>, String, TParam)
+  nameWithType.vb: Invocation(Of TParam, TResult).Invocation(Lazy(Of Type), String, TParam)
+- uid: SimplyAOP.Invocation`2.#ctor*
+  name: Invocation
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2__ctor_
+  commentId: Overload:SimplyAOP.Invocation`2.#ctor
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Invocation
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Invocation
+  nameWithType: Invocation<TParam, TResult>.Invocation
+  nameWithType.vb: Invocation(Of TParam, TResult).Invocation
+- uid: SimplyAOP.Invocation`2.GetAttribute*
+  name: GetAttribute
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_GetAttribute_
+  commentId: Overload:SimplyAOP.Invocation`2.GetAttribute
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.GetAttribute
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).GetAttribute
+  nameWithType: Invocation<TParam, TResult>.GetAttribute
+  nameWithType.vb: Invocation(Of TParam, TResult).GetAttribute
+- uid: SimplyAOP.Invocation`2.GetAttribute``1
+  name: GetAttribute<T>()
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_GetAttribute__1
+  commentId: M:SimplyAOP.Invocation`2.GetAttribute``1
+  name.vb: GetAttribute(Of T)()
+  fullName: SimplyAOP.Invocation<TParam, TResult>.GetAttribute<T>()
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).GetAttribute(Of T)()
+  nameWithType: Invocation<TParam, TResult>.GetAttribute<T>()
+  nameWithType.vb: Invocation(Of TParam, TResult).GetAttribute(Of T)()
+- uid: SimplyAOP.Invocation`2.IsMethodLookupDone
+  name: IsMethodLookupDone
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_IsMethodLookupDone
+  commentId: P:SimplyAOP.Invocation`2.IsMethodLookupDone
+  fullName: SimplyAOP.Invocation<TParam, TResult>.IsMethodLookupDone
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).IsMethodLookupDone
+  nameWithType: Invocation<TParam, TResult>.IsMethodLookupDone
+  nameWithType.vb: Invocation(Of TParam, TResult).IsMethodLookupDone
+- uid: SimplyAOP.Invocation`2.IsMethodLookupDone*
+  name: IsMethodLookupDone
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_IsMethodLookupDone_
+  commentId: Overload:SimplyAOP.Invocation`2.IsMethodLookupDone
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.IsMethodLookupDone
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).IsMethodLookupDone
+  nameWithType: Invocation<TParam, TResult>.IsMethodLookupDone
+  nameWithType.vb: Invocation(Of TParam, TResult).IsMethodLookupDone
+- uid: SimplyAOP.Invocation`2.IsSkippingMethod
+  name: IsSkippingMethod
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_IsSkippingMethod
+  commentId: P:SimplyAOP.Invocation`2.IsSkippingMethod
+  fullName: SimplyAOP.Invocation<TParam, TResult>.IsSkippingMethod
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).IsSkippingMethod
+  nameWithType: Invocation<TParam, TResult>.IsSkippingMethod
+  nameWithType.vb: Invocation(Of TParam, TResult).IsSkippingMethod
+- uid: SimplyAOP.Invocation`2.IsSkippingMethod*
+  name: IsSkippingMethod
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_IsSkippingMethod_
+  commentId: Overload:SimplyAOP.Invocation`2.IsSkippingMethod
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.IsSkippingMethod
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).IsSkippingMethod
+  nameWithType: Invocation<TParam, TResult>.IsSkippingMethod
+  nameWithType.vb: Invocation(Of TParam, TResult).IsSkippingMethod
+- uid: SimplyAOP.Invocation`2.Item(System.String)
+  name: Item[String]
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Item_System_String_
+  commentId: P:SimplyAOP.Invocation`2.Item(System.String)
+  name.vb: Item(String)
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Item[System.String]
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Item(System.String)
+  nameWithType: Invocation<TParam, TResult>.Item[String]
+  nameWithType.vb: Invocation(Of TParam, TResult).Item(String)
+- uid: SimplyAOP.Invocation`2.Item*
+  name: Item
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Item_
+  commentId: Overload:SimplyAOP.Invocation`2.Item
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Item
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Item
+  nameWithType: Invocation<TParam, TResult>.Item
+  nameWithType.vb: Invocation(Of TParam, TResult).Item
+- uid: SimplyAOP.Invocation`2.Method
+  name: Method
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Method
+  commentId: P:SimplyAOP.Invocation`2.Method
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Method
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Method
+  nameWithType: Invocation<TParam, TResult>.Method
+  nameWithType.vb: Invocation(Of TParam, TResult).Method
+- uid: SimplyAOP.Invocation`2.Method*
+  name: Method
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Method_
+  commentId: Overload:SimplyAOP.Invocation`2.Method
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Method
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Method
+  nameWithType: Invocation<TParam, TResult>.Method
+  nameWithType.vb: Invocation(Of TParam, TResult).Method
+- uid: SimplyAOP.Invocation`2.MethodName
+  name: MethodName
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_MethodName
+  commentId: P:SimplyAOP.Invocation`2.MethodName
+  fullName: SimplyAOP.Invocation<TParam, TResult>.MethodName
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).MethodName
+  nameWithType: Invocation<TParam, TResult>.MethodName
+  nameWithType.vb: Invocation(Of TParam, TResult).MethodName
+- uid: SimplyAOP.Invocation`2.MethodName*
+  name: MethodName
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_MethodName_
+  commentId: Overload:SimplyAOP.Invocation`2.MethodName
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.MethodName
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).MethodName
+  nameWithType: Invocation<TParam, TResult>.MethodName
+  nameWithType.vb: Invocation(Of TParam, TResult).MethodName
+- uid: SimplyAOP.Invocation`2.Parameter
+  name: Parameter
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Parameter
+  commentId: P:SimplyAOP.Invocation`2.Parameter
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Parameter
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Parameter
+  nameWithType: Invocation<TParam, TResult>.Parameter
+  nameWithType.vb: Invocation(Of TParam, TResult).Parameter
+- uid: SimplyAOP.Invocation`2.Parameter*
+  name: Parameter
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Parameter_
+  commentId: Overload:SimplyAOP.Invocation`2.Parameter
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Parameter
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Parameter
+  nameWithType: Invocation<TParam, TResult>.Parameter
+  nameWithType.vb: Invocation(Of TParam, TResult).Parameter
+- uid: SimplyAOP.Invocation`2.Result
+  name: Result
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Result
+  commentId: P:SimplyAOP.Invocation`2.Result
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Result
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Result
+  nameWithType: Invocation<TParam, TResult>.Result
+  nameWithType.vb: Invocation(Of TParam, TResult).Result
+- uid: SimplyAOP.Invocation`2.Result*
+  name: Result
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_Result_
+  commentId: Overload:SimplyAOP.Invocation`2.Result
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.Result
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).Result
+  nameWithType: Invocation<TParam, TResult>.Result
+  nameWithType.vb: Invocation(Of TParam, TResult).Result
+- uid: SimplyAOP.Invocation`2.SkipMethod
+  name: SkipMethod()
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_SkipMethod
+  commentId: M:SimplyAOP.Invocation`2.SkipMethod
+  fullName: SimplyAOP.Invocation<TParam, TResult>.SkipMethod()
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).SkipMethod()
+  nameWithType: Invocation<TParam, TResult>.SkipMethod()
+  nameWithType.vb: Invocation(Of TParam, TResult).SkipMethod()
+- uid: SimplyAOP.Invocation`2.SkipMethod*
+  name: SkipMethod
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_SkipMethod_
+  commentId: Overload:SimplyAOP.Invocation`2.SkipMethod
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.SkipMethod
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).SkipMethod
+  nameWithType: Invocation<TParam, TResult>.SkipMethod
+  nameWithType.vb: Invocation(Of TParam, TResult).SkipMethod
+- uid: SimplyAOP.Invocation`2.TargetType
+  name: TargetType
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_TargetType
+  commentId: P:SimplyAOP.Invocation`2.TargetType
+  fullName: SimplyAOP.Invocation<TParam, TResult>.TargetType
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).TargetType
+  nameWithType: Invocation<TParam, TResult>.TargetType
+  nameWithType.vb: Invocation(Of TParam, TResult).TargetType
+- uid: SimplyAOP.Invocation`2.TargetType*
+  name: TargetType
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_TargetType_
+  commentId: Overload:SimplyAOP.Invocation`2.TargetType
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.TargetType
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).TargetType
+  nameWithType: Invocation<TParam, TResult>.TargetType
+  nameWithType.vb: Invocation(Of TParam, TResult).TargetType
+- uid: SimplyAOP.Invocation`2.TryGetEntry(System.String,System.Object@)
+  name: TryGetEntry(String, out Object)
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_TryGetEntry_System_String_System_Object__
+  commentId: M:SimplyAOP.Invocation`2.TryGetEntry(System.String,System.Object@)
+  name.vb: TryGetEntry(String, ByRef Object)
+  fullName: SimplyAOP.Invocation<TParam, TResult>.TryGetEntry(System.String, out System.Object)
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).TryGetEntry(System.String, ByRef System.Object)
+  nameWithType: Invocation<TParam, TResult>.TryGetEntry(String, out Object)
+  nameWithType.vb: Invocation(Of TParam, TResult).TryGetEntry(String, ByRef Object)
+- uid: SimplyAOP.Invocation`2.TryGetEntry*
+  name: TryGetEntry
+  href: api/SimplyAOP.Invocation-2.html#SimplyAOP_Invocation_2_TryGetEntry_
+  commentId: Overload:SimplyAOP.Invocation`2.TryGetEntry
+  isSpec: "True"
+  fullName: SimplyAOP.Invocation<TParam, TResult>.TryGetEntry
+  fullName.vb: SimplyAOP.Invocation(Of TParam, TResult).TryGetEntry
+  nameWithType: Invocation<TParam, TResult>.TryGetEntry
+  nameWithType.vb: Invocation(Of TParam, TResult).TryGetEntry
+- uid: SimplyAOP.InvocationExtensions
+  name: InvocationExtensions
+  href: api/SimplyAOP.InvocationExtensions.html
+  commentId: T:SimplyAOP.InvocationExtensions
+  fullName: SimplyAOP.InvocationExtensions
+  nameWithType: InvocationExtensions
+- uid: SimplyAOP.InvocationExtensions.TryCastParameter*
+  name: TryCastParameter
+  href: api/SimplyAOP.InvocationExtensions.html#SimplyAOP_InvocationExtensions_TryCastParameter_
+  commentId: Overload:SimplyAOP.InvocationExtensions.TryCastParameter
+  isSpec: "True"
+  fullName: SimplyAOP.InvocationExtensions.TryCastParameter
+  nameWithType: InvocationExtensions.TryCastParameter
+- uid: SimplyAOP.InvocationExtensions.TryCastParameter``3(SimplyAOP.Invocation{``0,``1},SimplyAOP.IInvokeWithParameter{``2}@)
+  name: TryCastParameter<TParam, TResult, TOParam>(Invocation<TParam, TResult>, out IInvokeWithParameter<TOParam>)
+  href: api/SimplyAOP.InvocationExtensions.html#SimplyAOP_InvocationExtensions_TryCastParameter__3_SimplyAOP_Invocation___0___1__SimplyAOP_IInvokeWithParameter___2___
+  commentId: M:SimplyAOP.InvocationExtensions.TryCastParameter``3(SimplyAOP.Invocation{``0,``1},SimplyAOP.IInvokeWithParameter{``2}@)
+  name.vb: TryCastParameter(Of TParam, TResult, TOParam)(Invocation(Of TParam, TResult), ByRef IInvokeWithParameter(Of TOParam))
+  fullName: SimplyAOP.InvocationExtensions.TryCastParameter<TParam, TResult, TOParam>(SimplyAOP.Invocation<TParam, TResult>, out SimplyAOP.IInvokeWithParameter<TOParam>)
+  fullName.vb: SimplyAOP.InvocationExtensions.TryCastParameter(Of TParam, TResult, TOParam)(SimplyAOP.Invocation(Of TParam, TResult), ByRef SimplyAOP.IInvokeWithParameter(Of TOParam))
+  nameWithType: InvocationExtensions.TryCastParameter<TParam, TResult, TOParam>(Invocation<TParam, TResult>, out IInvokeWithParameter<TOParam>)
+  nameWithType.vb: InvocationExtensions.TryCastParameter(Of TParam, TResult, TOParam)(Invocation(Of TParam, TResult), ByRef IInvokeWithParameter(Of TOParam))
+- uid: SimplyAOP.InvocationExtensions.TryCastResult*
+  name: TryCastResult
+  href: api/SimplyAOP.InvocationExtensions.html#SimplyAOP_InvocationExtensions_TryCastResult_
+  commentId: Overload:SimplyAOP.InvocationExtensions.TryCastResult
+  isSpec: "True"
+  fullName: SimplyAOP.InvocationExtensions.TryCastResult
+  nameWithType: InvocationExtensions.TryCastResult
+- uid: SimplyAOP.InvocationExtensions.TryCastResult``3(SimplyAOP.Invocation{``0,``1},SimplyAOP.IInvokeWithResult{``2}@)
+  name: TryCastResult<TParam, TResult, TOResult>(Invocation<TParam, TResult>, out IInvokeWithResult<TOResult>)
+  href: api/SimplyAOP.InvocationExtensions.html#SimplyAOP_InvocationExtensions_TryCastResult__3_SimplyAOP_Invocation___0___1__SimplyAOP_IInvokeWithResult___2___
+  commentId: M:SimplyAOP.InvocationExtensions.TryCastResult``3(SimplyAOP.Invocation{``0,``1},SimplyAOP.IInvokeWithResult{``2}@)
+  name.vb: TryCastResult(Of TParam, TResult, TOResult)(Invocation(Of TParam, TResult), ByRef IInvokeWithResult(Of TOResult))
+  fullName: SimplyAOP.InvocationExtensions.TryCastResult<TParam, TResult, TOResult>(SimplyAOP.Invocation<TParam, TResult>, out SimplyAOP.IInvokeWithResult<TOResult>)
+  fullName.vb: SimplyAOP.InvocationExtensions.TryCastResult(Of TParam, TResult, TOResult)(SimplyAOP.Invocation(Of TParam, TResult), ByRef SimplyAOP.IInvokeWithResult(Of TOResult))
+  nameWithType: InvocationExtensions.TryCastResult<TParam, TResult, TOResult>(Invocation<TParam, TResult>, out IInvokeWithResult<TOResult>)
+  nameWithType.vb: InvocationExtensions.TryCastResult(Of TParam, TResult, TOResult)(Invocation(Of TParam, TResult), ByRef IInvokeWithResult(Of TOResult))

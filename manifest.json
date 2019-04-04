@@ -1,0 +1,260 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/Repos/SimplyAOP/SimplyAOP.Doc",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "../CHANGELOG.md",
+      "output": {
+        ".html": {
+          "relative_path": "CHANGELOG.html",
+          "hash": "wIcEDz4oXqsyLMd6/EXLbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.AspectConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.AspectConfiguration.html",
+          "hash": "YKd8ekfMSCGSM1frrzTDRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.AspectWeaver.Class.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.AspectWeaver.Class.html",
+          "hash": "1Z6KPQSV8NqML02qCdjndA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.AspectWeaver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.AspectWeaver.html",
+          "hash": "zVwUldBg/5BdwLXqs7IEXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.IAfterAdvice.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.IAfterAdvice.html",
+          "hash": "gq6CalwVMbcdtUXw4M1UBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.IAspect.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.IAspect.html",
+          "hash": "8kWK+nJXizG1knPBXW/n1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.IBeforeAdvice.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.IBeforeAdvice.html",
+          "hash": "oThq+1RvQHtpmEsjWnpSfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.IInvokeWithParameter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.IInvokeWithParameter-1.html",
+          "hash": "E82F27JU4ltfZEesLcbBJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.IInvokeWithResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.IInvokeWithResult-1.html",
+          "hash": "DcGeBWDTCBkMFAUlwggtHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.Invocation-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.Invocation-2.html",
+          "hash": "TGpRe/i1xNKDDBhYDgiURg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.InvocationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.InvocationExtensions.html",
+          "hash": "9fzm8M387j7ITuHygE1J+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SimplyAOP.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SimplyAOP.html",
+          "hash": "kHa57+I82m8wqc2Z0Rmxwg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "WkoAJ67L4q2y25qG6HoqCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "OFixBu4QC4+5dt57mjhzww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "o46snTOkY9pA6aXaEOkNJg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "x0rsBnvqjn+TVAgHMTqLXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "39kBhDy2iJ0e0Dk35SHIDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 11,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: it's disabled.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
