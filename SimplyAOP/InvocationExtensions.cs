@@ -25,11 +25,11 @@
 
     public interface IInvokeWithParameter<TParam>
     {
-        ref TParam Parameter { get; }
+        TParam Parameter { get; set; }
     }
 
     public interface IInvokeWithResult<TResult>
     {
-        ref TResult Result { get; }
+        TResult Result { get; set; }
     }
 }

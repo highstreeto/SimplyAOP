@@ -8,11 +8,10 @@
     var returnTypes = new [] { "void", "TResult" };
     var paramTypes = new [] { "void", "TParam" };
 #>
-
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
 
 namespace SimplyAOP 
 {
@@ -20,7 +19,7 @@ namespace SimplyAOP
     {
 <# foreach (var returnType in returnTypes) { #>
 <# foreach (var paramType in paramTypes) { #>
-        public <#= returnType #> Advice<# WriteTypeArgs(returnType, paramType); #>(<# WriteParameter(paramType); #><# WriteMethodSignature(returnType, paramType); #> method, [CallerMemberName] string callerMemberName = null) {
+        public <# WriteReturnType(returnType); #> Advice<# WriteTypeArgs(returnType, paramType); #>(<# WriteParameter(paramType); #><# WriteMethodSignature(returnType, paramType); #> method, [CallerMemberName] string callerMemberName = null) {
             var invocation = <# WriteNewInvocation(returnType, paramType); #>
             try {
                 foreach (var advice in config.BeforeAdvices)
@@ -28,6 +27,33 @@ namespace SimplyAOP
 
                 if (!invocation.IsSkippingMethod)
                     <# WriteMethodCall(returnType, paramType); #>
+
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterReturning(invocation);
+
+<# if (returnType != "void") { #>
+                return invocation.Result;
+<# } #>
+            } catch (Exception ex) {
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
+                ExceptionDispatchInfo.Capture(ex).Throw();
+<# if (returnType != "void") { #>
+                return default;
+<# } #>
+            }
+        }
+
+        public async <# WriteReturnType(returnType, async: true); #> AdviceAsync<# WriteTypeArgs(returnType, paramType); #>(<# WriteParameter(paramType); #><# WriteMethodSignature(returnType, paramType, async: true); #> method, [CallerMemberName] string callerMemberName = null) {
+            var invocation = <# WriteNewInvocation(returnType, paramType); #>
+            try {
+                foreach (var advice in config.BeforeAdvices)
+                    advice.Before(invocation);
+
+                if (!invocation.IsSkippingMethod)
+                    <# WriteMethodCall(returnType, paramType, async: true); #>
 
                 foreach (var advice in config.AfterAdvices)
                     advice.AfterReturning(invocation);
@@ -68,6 +94,17 @@ public void WriteTypeArgs(string returnType, string paramType) {
     Write(">");
 }
 
+public void WriteReturnType(string returnType, bool async = false) {
+    if (async) { 
+        if (returnType == "void")
+            Write("Task");
+        else
+            Write($"Task<{returnType}>");
+    } else {
+        Write(returnType);
+    } 
+}
+
 public void WriteParameter(string paramType) {
     if (paramType != "void") {
         Write(paramType);
@@ -76,19 +113,29 @@ public void WriteParameter(string paramType) {
     }
 }
 
-public void WriteMethodSignature(string returnType, string paramType) {
-    if (returnType == "void")
-        Write("Action");
-    else
+public void WriteMethodSignature(string returnType, string paramType, bool async = false) {
+    if (async) {
         Write("Func");
-
-    WriteTypeArgs(returnType, paramType);
+        if (returnType == "void")
+            WriteTypeArgs("Task", paramType);
+        else
+            WriteTypeArgs($"Task<{returnType}>", paramType);
+    } else {
+        if (returnType == "void")
+            Write("Action");
+        else
+            Write("Func");
+         
+        WriteTypeArgs(returnType, paramType);
+    }
 }
 
-public void WriteMethodCall(string returnType, string paramType) {
+public void WriteMethodCall(string returnType, string paramType, bool async = false) {
     if (returnType != "void")
         Write("invocation.Result = ");
-
+    if (async)
+        Write("await ");
+    
     Write("method(");
     if (paramType != "void")
         Write("invocation.Parameter");

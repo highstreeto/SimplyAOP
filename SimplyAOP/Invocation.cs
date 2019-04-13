@@ -14,16 +14,13 @@ namespace SimplyAOP
         private readonly Lazy<Type[]> parameterTypes;
         private readonly Dictionary<string, object> store = new Dictionary<string, object>();
 
-        private TParam parameter;
-        private TResult result;
-
         public Invocation(Lazy<Type> targetType, string methodName)
             : this(targetType, methodName, default(TParam)) { }
 
         public Invocation(Lazy<Type> targetType, string methodName, TParam parameter) {
             MethodName = methodName;
+            Parameter = parameter;
             this.targetType = targetType;
-            this.parameter = parameter;
             this.parameterTypes = DetermineParameterTypes(parameter);
 
             method = new Lazy<MethodInfo>(() =>
@@ -47,8 +44,8 @@ namespace SimplyAOP
         public void SkipMethod()
             => IsSkippingMethod = true;
 
-        public ref TParam Parameter => ref parameter;
-        public ref TResult Result => ref result;
+        public TParam Parameter { get; set; }
+        public TResult Result { get; set; }
 
         public T GetAttribute<T>() where T : Attribute
             => Method.GetCustomAttribute<T>();
