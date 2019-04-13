@@ -1,0 +1,116 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    var returnTypes = new [] { "void", "TResult" };
+    var paramTypes = new [] { "void", "TParam" };
+#>
+
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
+
+namespace SimplyAOP 
+{
+    public partial class AspectWeaver
+    {
+<# foreach (var returnType in returnTypes) { #>
+<# foreach (var paramType in paramTypes) { #>
+        public <#= returnType #> Advice<# WriteTypeArgs(returnType, paramType); #>(<# WriteParameter(paramType); #><# WriteMethodSignature(returnType, paramType); #> method, [CallerMemberName] string callerMemberName = null) {
+            var invocation = <# WriteNewInvocation(returnType, paramType); #>
+            try {
+                foreach (var advice in config.BeforeAdvices)
+                    advice.Before(invocation);
+
+                if (!invocation.IsSkippingMethod)
+                    <# WriteMethodCall(returnType, paramType); #>
+
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterReturning(invocation);
+
+<# if (returnType != "void") { #>
+                return invocation.Result;
+<# } #>
+            } catch (Exception ex) {
+                foreach (var advice in config.AfterAdvices)
+                    advice.AfterThrowing(invocation, ref ex);
+                if (ex == null)
+                    throw new InvalidOperationException("Exception can not be changed to null!");
+                ExceptionDispatchInfo.Capture(ex).Throw();
+<# if (returnType != "void") { #>
+                return default;
+<# } #>
+            }
+        }
+<# } #>
+<# } #>
+    }
+}
+
+<#+
+public void WriteTypeArgs(string returnType, string paramType) {
+    if (returnType == "void" && paramType == "void") {
+        return;
+    }
+
+    Write("<");
+    var types = new List<string>();
+    if (paramType != "void")
+        types.Add(paramType);
+
+    if (returnType != "void")
+        types.Add(returnType);
+    Write(string.Join(", ", types));
+    Write(">");
+}
+
+public void WriteParameter(string paramType) {
+    if (paramType != "void") {
+        Write(paramType);
+        Write(" ");
+        Write("param, ");
+    }
+}
+
+public void WriteMethodSignature(string returnType, string paramType) {
+    if (returnType == "void")
+        Write("Action");
+    else
+        Write("Func");
+
+    WriteTypeArgs(returnType, paramType);
+}
+
+public void WriteMethodCall(string returnType, string paramType) {
+    if (returnType != "void")
+        Write("invocation.Result = ");
+
+    Write("method(");
+    if (paramType != "void")
+        Write("invocation.Parameter");
+    WriteLine(");");
+}
+
+public void WriteNewInvocation(string returnType, string paramType) {
+    Write("new Invocation<");
+    if (paramType == "void")
+        Write("ValueTuple");
+    else
+        Write(paramType);
+    Write(", ");
+
+    if (returnType == "void")
+        Write("ValueTuple");
+    else
+        Write(returnType);
+
+    Write(">(targetType, callerMemberName");
+    if (paramType != "void")
+        Write(", param");
+    WriteLine(");");
+}
+#>

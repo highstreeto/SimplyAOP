@@ -8,7 +8,7 @@ namespace SimplyAOP
     /// <summary>
     /// Simple Aspect Waver which must be directly called
     /// </summary>
-    public class AspectWeaver
+    public partial class AspectWeaver
     {
         private readonly AspectConfiguration config;
         private readonly object target;
@@ -20,93 +20,8 @@ namespace SimplyAOP
             this.targetType = new Lazy<Type>(() => this.target.GetType());
         }
 
-        public void Advice(Action method, [CallerMemberName] string callerMemberName = null) {
-            // Use ValueTuple (without type arguments) as a type for void (is similar to F# Unit)
-            var invocation = new Invocation<ValueTuple, ValueTuple>(targetType, callerMemberName);
-            try {
-                foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation);
-
-                if (!invocation.IsSkippingMethod)
-                    method();
-
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation);
-            } catch (Exception ex) {
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterThrowing(invocation, ref ex);
-                if (ex == null)
-                    throw new InvalidOperationException("Exception can not be changed to null!");
-                ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-        }
-
-        public void Advice<TParam>(TParam param, Action<TParam> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation<TParam, ValueTuple>(targetType, callerMemberName, param);
-            try {
-                foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation);
-
-                if (!invocation.IsSkippingMethod)
-                    method(invocation.Parameter);
-
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation);
-            } catch (Exception ex) {
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterThrowing(invocation, ref ex);
-                if (ex == null)
-                    throw new InvalidOperationException("Exception can not be changed to null!");
-                ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-        }
-
         public void Advice<TParam>(Action<TParam> method, TParam param, [CallerMemberName] string callerMemberName = null)
             => Advice(param, method, callerMemberName);
-
-        public TResult Advice<TResult>(Func<TResult> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation<ValueTuple, TResult>(targetType, callerMemberName);
-            try {
-                foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation);
-
-                if (!invocation.IsSkippingMethod)
-                    invocation.Result = method();
-
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation);
-                return invocation.Result;
-            } catch (Exception ex) {
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterThrowing(invocation, ref ex);
-                if (ex == null)
-                    throw new InvalidOperationException("Exception can not be changed to null!");
-                ExceptionDispatchInfo.Capture(ex).Throw();
-                return default(TResult);
-            }
-        }
-
-        public TResult Advice<TParam, TResult>(TParam param, Func<TParam, TResult> method, [CallerMemberName] string callerMemberName = null) {
-            var invocation = new Invocation<TParam, TResult>(targetType, callerMemberName, param);
-            try {
-                foreach (var advice in config.BeforeAdvices)
-                    advice.Before(invocation);
-
-                if (!invocation.IsSkippingMethod)
-                    invocation.Result = method(invocation.Parameter);
-
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterReturning(invocation);
-                return invocation.Result;
-            } catch (Exception ex) {
-                foreach (var advice in config.AfterAdvices)
-                    advice.AfterThrowing(invocation, ref ex);
-                if (ex == null)
-                    throw new InvalidOperationException("Exception can not be changed to null!");
-                ExceptionDispatchInfo.Capture(ex).Throw();
-                return default(TResult);
-            }
-        }
 
         public TResult Advice<TParam, TResult>(Func<TParam, TResult> method, TParam param, [CallerMemberName] string callerMemberName = null)
             => Advice(param, method, callerMemberName);

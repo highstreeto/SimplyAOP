@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,5 +6,24 @@
     <Company />
     <Copyright>Copyright (c) 2019 Martin Hochstrasser</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AspectWeaver.Advice.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AspectWeaver.Advice.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AspectWeaver.Advice.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AspectWeaver.Advice.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
 </Project>
